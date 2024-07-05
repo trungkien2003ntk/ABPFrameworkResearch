@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyDemo.Bookstore.Books;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -53,6 +54,9 @@ public class BookstoreDbContext :
 
     #endregion
 
+    public DbSet<Book> Books { get; set; }
+
+
     public BookstoreDbContext(DbContextOptions<BookstoreDbContext> options)
         : base(options)
     {
@@ -75,12 +79,7 @@ public class BookstoreDbContext :
         builder.ConfigureTenantManagement();
 
         /* Configure your own tables/entities inside here */
-
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(BookstoreConsts.DbTablePrefix + "YourEntities", BookstoreConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        var assembly = typeof(BookstoreDbContext).Assembly;
+        builder.ApplyConfigurationsFromAssembly(assembly);
     }
 }
