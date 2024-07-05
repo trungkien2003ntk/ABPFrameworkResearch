@@ -25,4 +25,5 @@ The primary goals of this research project are to:
 
 ## Additional Notes
 
+SpreadSheet notes: https://docs.google.com/spreadsheets/d/1FElGGUNKNx9l0UEFSSyLmP57udOiAr-rdrnKDTw4X5I/edit?usp=sharing
 This project is in its very early stages. More detailed documentation and code will be added as the research progresses.
