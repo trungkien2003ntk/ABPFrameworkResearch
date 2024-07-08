@@ -18,7 +18,7 @@ public class BookStoreDataSeederContributor
 
     public async Task SeedAsync(DataSeedContext context)
     {
-        if (await _bookRepository.AnyAsync())
+        if (!await _bookRepository.AnyAsync())
         {
             await _bookRepository.InsertAsync(
                 new()

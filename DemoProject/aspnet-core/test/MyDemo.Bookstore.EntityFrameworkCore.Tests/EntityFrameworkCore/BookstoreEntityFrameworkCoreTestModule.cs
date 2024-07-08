@@ -56,6 +56,8 @@ public class BookstoreEntityFrameworkCoreTestModule : AbpModule
                 context.DbContextOptions.UseSqlite(_sqliteConnection);
             });
         });
+
+
     }
 
     public override void OnApplicationShutdown(ApplicationShutdownContext context)
