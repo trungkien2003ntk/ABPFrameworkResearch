@@ -9,7 +9,8 @@
       <div class="text-end col col-md-6">
         <!-- Add the "new book" button here -->
         <div class="text-lg-end pt-2">
-          <button id="create" class="btn btn-primary" type="button" (click)="createBook()">
+          <button *abpPermission="'Bookstore.Books.Create'" id="create" class="btn btn-primary" type="button"
+            (click)="createBook()">
             <i class="fa fa-plus me-1"></i>
             <span>{{ "::NewBook" | abpLocalization }}</span>
           </button>
@@ -28,10 +29,10 @@
               <i class="fa fa-cog me-1"></i>{{ '::Actions' | abpLocalization }}
             </button>
             <div ngbDropdownMenu>
-              <button ngbDropdownItem (click)="editBook(row.id)">
+              <button *abpPermission="'Bookstore.Books.Edit'" ngbDropdownItem (click)="editBook(row.id)">
                 {{ '::Edit' | abpLocalization }}
               </button>
-              <button ngbDropdownItem (click)="delete(row.id)">
+              <button *abpPermission="'Bookstore.Books.Delete'" ngbDropdownItem (click)="delete(row.id)">
                 {{ '::Delete' | abpLocalization }}
               </button>
             </div>

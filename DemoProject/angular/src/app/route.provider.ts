@@ -21,12 +21,14 @@ function configureRoutes(routesService: RoutesService) {
         iconClass: 'fas fa-book',
         order: 2,
         layout: eLayoutType.application,
+        requiredPolicy: 'Bookstore.Books',
       },
       {
         path: '/books',
         name: '::Menu:Books',
         parentName: '::Menu:BookStore',
         layout: eLayoutType.application,
+        requiredPolicy: 'Bookstore.Books',
       },
     ]);
   };

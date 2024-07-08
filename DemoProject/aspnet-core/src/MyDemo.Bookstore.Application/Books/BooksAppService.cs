@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyDemo.Bookstore.Permissions;
+using System;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -17,6 +18,10 @@ public class BooksAppService :
     public BooksAppService(IRepository<Book, Guid> repository)
         : base(repository)
     {
-
+        GetPolicyName = BookstorePermissions.Books.Default;
+        GetListPolicyName = BookstorePermissions.Books.Default;
+        CreatePolicyName = BookstorePermissions.Books.Create;
+        UpdatePolicyName = BookstorePermissions.Books.Edit;
+        DeletePolicyName = BookstorePermissions.Books.Delete;
     }
 }
