@@ -1,6 +1,6 @@
-﻿namespace MyDemo.Bookstore;
+﻿namespace MyDemo.BookStore;
 
-public static class BookstoreTestConsts
+public static class BookStoreTestConsts
 {
-    public const string CollectionDefinitionName = "Bookstore collection";
+    public const string CollectionDefinitionName = "BookStore collection";
 }

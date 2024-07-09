@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
+using MyDemo.BookStore.Authors;
+using MyDemo.BookStore.Books;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
-public class BookstoreApplicationAutoMapperProfile : Profile
+public class BookStoreApplicationAutoMapperProfile : Profile
 {
-    public BookstoreApplicationAutoMapperProfile()
+    public BookStoreApplicationAutoMapperProfile()
     {
-        /* You can configure your AutoMapper mapping configuration here.
-         * Alternatively, you can split your mapping configurations
-         * into multiple profile classes for a better organization. */
+        CreateMap<Book, BookDto>();
+        CreateMap<CreateUpdateBookDto, Book>();
+        CreateMap<Author, AuthorDto>();
     }
 }

@@ -1,4 +1,4 @@
-﻿using MyDemo.Bookstore.Localization;
+﻿using MyDemo.BookStore.Localization;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.FeatureManagement;
@@ -13,7 +13,7 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
 [DependsOn(
     typeof(AbpAuditLoggingDomainSharedModule),
@@ -25,34 +25,34 @@ namespace MyDemo.Bookstore;
     typeof(AbpSettingManagementDomainSharedModule),
     typeof(AbpTenantManagementDomainSharedModule)    
     )]
-public class BookstoreDomainSharedModule : AbpModule
+public class BookStoreDomainSharedModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        BookstoreGlobalFeatureConfigurator.Configure();
-        BookstoreModuleExtensionConfigurator.Configure();
+        BookStoreGlobalFeatureConfigurator.Configure();
+        BookStoreModuleExtensionConfigurator.Configure();
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         Configure<AbpVirtualFileSystemOptions>(options =>
         {
-            options.FileSets.AddEmbedded<BookstoreDomainSharedModule>();
+            options.FileSets.AddEmbedded<BookStoreDomainSharedModule>();
         });
 
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Resources
-                .Add<BookstoreResource>("en")
+                .Add<BookStoreResource>("en")
                 .AddBaseTypes(typeof(AbpValidationResource))
-                .AddVirtualJson("/Localization/Bookstore");
+                .AddVirtualJson("/Localization/BookStore");
 
-            options.DefaultResourceType = typeof(BookstoreResource);
+            options.DefaultResourceType = typeof(BookStoreResource);
         });
 
         Configure<AbpExceptionLocalizationOptions>(options =>
         {
-            options.MapCodeNamespace("Bookstore", typeof(BookstoreResource));
+            options.MapCodeNamespace("BookStore", typeof(BookStoreResource));
         });
     }
 }

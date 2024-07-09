@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyDemo.BookStore.Authors;
+using MyDemo.BookStore.Books;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -13,13 +15,13 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore;
+namespace MyDemo.BookStore.EntityFrameworkCore;
 
 [ReplaceDbContext(typeof(IIdentityDbContext))]
 [ReplaceDbContext(typeof(ITenantManagementDbContext))]
 [ConnectionStringName("Default")]
-public class BookstoreDbContext :
-    AbpDbContext<BookstoreDbContext>,
+public class BookStoreDbContext :
+    AbpDbContext<BookStoreDbContext>,
     IIdentityDbContext,
     ITenantManagementDbContext
 {
@@ -53,7 +55,10 @@ public class BookstoreDbContext :
 
     #endregion
 
-    public BookstoreDbContext(DbContextOptions<BookstoreDbContext> options)
+    public DbSet<Book> Books { get; set; }
+    public DbSet<Author> Authors { get; set; }
+
+    public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options)
         : base(options)
     {
 
@@ -75,12 +80,7 @@ public class BookstoreDbContext :
         builder.ConfigureTenantManagement();
 
         /* Configure your own tables/entities inside here */
-
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(BookstoreConsts.DbTablePrefix + "YourEntities", BookstoreConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        var assembly = typeof(BookStoreDbContext).Assembly;
+        builder.ApplyConfigurationsFromAssembly(assembly);
     }
 }

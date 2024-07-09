@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc;
 
-namespace MyDemo.Bookstore.Controllers;
+namespace MyDemo.BookStore.Controllers;
 
 public class HomeController : AbpController
 {

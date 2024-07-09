@@ -3,9 +3,9 @@ using Volo.Abp.Identity;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.Threading;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
-public static class BookstoreModuleExtensionConfigurator
+public static class BookStoreModuleExtensionConfigurator
 {
     private static readonly OneTimeRunner OneTimeRunner = new OneTimeRunner();
 

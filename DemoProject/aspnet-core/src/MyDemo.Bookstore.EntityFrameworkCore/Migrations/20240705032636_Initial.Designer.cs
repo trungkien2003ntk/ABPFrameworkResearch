@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MyDemo.Bookstore.EntityFrameworkCore;
+using MyDemo.BookStore.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
 #nullable disable
 
-namespace MyDemo.Bookstore.Migrations
+namespace MyDemo.BookStore.Migrations
 {
-    [DbContext(typeof(BookstoreDbContext))]
+    [DbContext(typeof(BookStoreDbContext))]
     [Migration("20240705032636_Initial")]
     partial class Initial
     {

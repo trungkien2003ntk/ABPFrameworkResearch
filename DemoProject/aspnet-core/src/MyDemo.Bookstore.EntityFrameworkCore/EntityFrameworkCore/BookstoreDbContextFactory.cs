@@ -4,28 +4,28 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore;
+namespace MyDemo.BookStore.EntityFrameworkCore;
 
 /* This class is needed for EF Core console commands
  * (like Add-Migration and Update-Database commands) */
-public class BookstoreDbContextFactory : IDesignTimeDbContextFactory<BookstoreDbContext>
+public class BookStoreDbContextFactory : IDesignTimeDbContextFactory<BookStoreDbContext>
 {
-    public BookstoreDbContext CreateDbContext(string[] args)
+    public BookStoreDbContext CreateDbContext(string[] args)
     {
-        BookstoreEfCoreEntityExtensionMappings.Configure();
+        BookStoreEfCoreEntityExtensionMappings.Configure();
 
         var configuration = BuildConfiguration();
 
-        var builder = new DbContextOptionsBuilder<BookstoreDbContext>()
+        var builder = new DbContextOptionsBuilder<BookStoreDbContext>()
             .UseSqlServer(configuration.GetConnectionString("Default"));
 
-        return new BookstoreDbContext(builder.Options);
+        return new BookStoreDbContext(builder.Options);
     }
 
     private static IConfigurationRoot BuildConfiguration()
     {
         var builder = new ConfigurationBuilder()
-            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../MyDemo.Bookstore.DbMigrator/"))
+            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../MyDemo.BookStore.DbMigrator/"))
             .AddJsonFile("appsettings.json", optional: false);
 
         return builder.Build();

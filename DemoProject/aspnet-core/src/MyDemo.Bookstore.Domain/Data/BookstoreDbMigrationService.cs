@@ -13,20 +13,20 @@ using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.TenantManagement;
 
-namespace MyDemo.Bookstore.Data;
+namespace MyDemo.BookStore.Data;
 
-public class BookstoreDbMigrationService : ITransientDependency
+public class BookStoreDbMigrationService : ITransientDependency
 {
-    public ILogger<BookstoreDbMigrationService> Logger { get; set; }
+    public ILogger<BookStoreDbMigrationService> Logger { get; set; }
 
     private readonly IDataSeeder _dataSeeder;
-    private readonly IEnumerable<IBookstoreDbSchemaMigrator> _dbSchemaMigrators;
+    private readonly IEnumerable<IBookStoreDbSchemaMigrator> _dbSchemaMigrators;
     private readonly ITenantRepository _tenantRepository;
     private readonly ICurrentTenant _currentTenant;
 
-    public BookstoreDbMigrationService(
+    public BookStoreDbMigrationService(
         IDataSeeder dataSeeder,
-        IEnumerable<IBookstoreDbSchemaMigrator> dbSchemaMigrators,
+        IEnumerable<IBookStoreDbSchemaMigrator> dbSchemaMigrators,
         ITenantRepository tenantRepository,
         ICurrentTenant currentTenant)
     {
@@ -35,7 +35,7 @@ public class BookstoreDbMigrationService : ITransientDependency
         _tenantRepository = tenantRepository;
         _currentTenant = currentTenant;
 
-        Logger = NullLogger<BookstoreDbMigrationService>.Instance;
+        Logger = NullLogger<BookStoreDbMigrationService>.Instance;
     }
 
     public async Task MigrateAsync()

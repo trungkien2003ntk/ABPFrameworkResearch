@@ -7,10 +7,10 @@ using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
 [DependsOn(
-    typeof(BookstoreDomainSharedModule),
+    typeof(BookStoreDomainSharedModule),
     typeof(AbpAccountApplicationContractsModule),
     typeof(AbpFeatureManagementApplicationContractsModule),
     typeof(AbpIdentityApplicationContractsModule),
@@ -19,10 +19,10 @@ namespace MyDemo.Bookstore;
     typeof(AbpTenantManagementApplicationContractsModule),
     typeof(AbpObjectExtendingModule)
 )]
-public class BookstoreApplicationContractsModule : AbpModule
+public class BookStoreApplicationContractsModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        BookstoreDtoExtensions.Configure();
+        BookStoreDtoExtensions.Configure();
     }
 }

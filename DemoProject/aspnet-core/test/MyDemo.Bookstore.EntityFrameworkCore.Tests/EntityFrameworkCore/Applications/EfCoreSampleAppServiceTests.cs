@@ -1,10 +1,10 @@
-using MyDemo.Bookstore.Samples;
+using MyDemo.BookStore.Samples;
 using Xunit;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore.Applications;
+namespace MyDemo.BookStore.EntityFrameworkCore.Applications;
 
-[Collection(BookstoreTestConsts.CollectionDefinitionName)]
-public class EfCoreSampleAppServiceTests : SampleAppServiceTests<BookstoreEntityFrameworkCoreTestModule>
+[Collection(BookStoreTestConsts.CollectionDefinitionName)]
+public class EfCoreSampleAppServiceTests : SampleAppServiceTests<BookStoreEntityFrameworkCoreTestModule>
 {
 
 }

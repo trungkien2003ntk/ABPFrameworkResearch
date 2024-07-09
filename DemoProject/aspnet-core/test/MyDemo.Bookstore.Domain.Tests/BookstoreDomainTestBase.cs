@@ -1,9 +1,9 @@
 ﻿using Volo.Abp.Modularity;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
 /* Inherit from this class for your domain layer tests. */
-public abstract class BookstoreDomainTestBase<TStartupModule> : BookstoreTestBase<TStartupModule>
+public abstract class BookStoreDomainTestBase<TStartupModule> : BookStoreTestBase<TStartupModule>
     where TStartupModule : IAbpModule
 {
 

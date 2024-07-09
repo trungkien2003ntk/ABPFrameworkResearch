@@ -13,10 +13,10 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore;
+namespace MyDemo.BookStore.EntityFrameworkCore;
 
 [DependsOn(
-    typeof(BookstoreDomainModule),
+    typeof(BookStoreDomainModule),
     typeof(AbpIdentityEntityFrameworkCoreModule),
     typeof(AbpOpenIddictEntityFrameworkCoreModule),
     typeof(AbpPermissionManagementEntityFrameworkCoreModule),
@@ -27,16 +27,16 @@ namespace MyDemo.Bookstore.EntityFrameworkCore;
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
     typeof(AbpFeatureManagementEntityFrameworkCoreModule)
     )]
-public class BookstoreEntityFrameworkCoreModule : AbpModule
+public class BookStoreEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        BookstoreEfCoreEntityExtensionMappings.Configure();
+        BookStoreEfCoreEntityExtensionMappings.Configure();
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.AddAbpDbContext<BookstoreDbContext>(options =>
+        context.Services.AddAbpDbContext<BookStoreDbContext>(options =>
         {
                 /* Remove "includeAllEntities: true" to create
                  * default repositories only for aggregate roots */
@@ -46,7 +46,7 @@ public class BookstoreEntityFrameworkCoreModule : AbpModule
         Configure<AbpDbContextOptions>(options =>
         {
                 /* The main point to change your DBMS.
-                 * See also BookstoreMigrationsDbContextFactory for EF Core tooling. */
+                 * See also BookStoreMigrationsDbContextFactory for EF Core tooling. */
             options.UseSqlServer();
         });
 

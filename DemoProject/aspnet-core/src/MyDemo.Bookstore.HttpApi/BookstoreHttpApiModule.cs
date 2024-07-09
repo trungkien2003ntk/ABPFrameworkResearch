@@ -1,5 +1,5 @@
 ﻿using Localization.Resources.AbpUi;
-using MyDemo.Bookstore.Localization;
+using MyDemo.BookStore.Localization;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
@@ -9,10 +9,10 @@ using Volo.Abp.PermissionManagement.HttpApi;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
 [DependsOn(
-    typeof(BookstoreApplicationContractsModule),
+    typeof(BookStoreApplicationContractsModule),
     typeof(AbpAccountHttpApiModule),
     typeof(AbpIdentityHttpApiModule),
     typeof(AbpPermissionManagementHttpApiModule),
@@ -20,7 +20,7 @@ namespace MyDemo.Bookstore;
     typeof(AbpFeatureManagementHttpApiModule),
     typeof(AbpSettingManagementHttpApiModule)
     )]
-public class BookstoreHttpApiModule : AbpModule
+public class BookStoreHttpApiModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
@@ -32,7 +32,7 @@ public class BookstoreHttpApiModule : AbpModule
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Resources
-                .Get<BookstoreResource>()
+                .Get<BookStoreResource>()
                 .AddBaseTypes(
                     typeof(AbpUiResource)
                 );

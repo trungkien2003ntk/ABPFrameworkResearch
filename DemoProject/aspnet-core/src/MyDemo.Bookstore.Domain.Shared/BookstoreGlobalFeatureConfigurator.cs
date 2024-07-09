@@ -1,8 +1,8 @@
 ﻿using Volo.Abp.Threading;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
-public static class BookstoreGlobalFeatureConfigurator
+public static class BookStoreGlobalFeatureConfigurator
 {
     private static readonly OneTimeRunner OneTimeRunner = new OneTimeRunner();
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using MyDemo.Bookstore.MultiTenancy;
+using MyDemo.BookStore.MultiTenancy;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Emailing;
@@ -15,10 +15,10 @@ using Volo.Abp.PermissionManagement.OpenIddict;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
 [DependsOn(
-    typeof(BookstoreDomainSharedModule),
+    typeof(BookStoreDomainSharedModule),
     typeof(AbpAuditLoggingDomainModule),
     typeof(AbpBackgroundJobsDomainModule),
     typeof(AbpFeatureManagementDomainModule),
@@ -30,7 +30,7 @@ namespace MyDemo.Bookstore;
     typeof(AbpTenantManagementDomainModule),
     typeof(AbpEmailingModule)
 )]
-public class BookstoreDomainModule : AbpModule
+public class BookStoreDomainModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {

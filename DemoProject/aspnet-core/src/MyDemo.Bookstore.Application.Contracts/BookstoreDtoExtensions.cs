@@ -2,9 +2,9 @@
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.Threading;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
-public static class BookstoreDtoExtensions
+public static class BookStoreDtoExtensions
 {
     private static readonly OneTimeRunner OneTimeRunner = new OneTimeRunner();
 

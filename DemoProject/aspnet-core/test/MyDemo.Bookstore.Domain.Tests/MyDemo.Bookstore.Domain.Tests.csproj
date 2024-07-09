@@ -5,7 +5,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <RootNamespace>MyDemo.Bookstore</RootNamespace>
+    <RootNamespace>MyDemo.BookStore</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\MyDemo.Bookstore.Domain\MyDemo.Bookstore.Domain.csproj" />
-    <ProjectReference Include="..\MyDemo.Bookstore.TestBase\MyDemo.Bookstore.TestBase.csproj" />
+    <ProjectReference Include="..\..\src\MyDemo.BookStore.Domain\MyDemo.BookStore.Domain.csproj" />
+    <ProjectReference Include="..\MyDemo.BookStore.TestBase\MyDemo.BookStore.TestBase.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,9 +2,9 @@
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
-public class BookstoreTestDataSeedContributor : IDataSeedContributor, ITransientDependency
+public class BookStoreTestDataSeedContributor : IDataSeedContributor, ITransientDependency
 {
     public Task SeedAsync(DataSeedContext context)
     {

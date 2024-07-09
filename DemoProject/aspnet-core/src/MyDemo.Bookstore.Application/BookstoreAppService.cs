@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using MyDemo.Bookstore.Localization;
+using MyDemo.BookStore.Localization;
 using Volo.Abp.Application.Services;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
 /* Inherit your application services from this class.
  */
-public abstract class BookstoreAppService : ApplicationService
+public abstract class BookStoreAppService : ApplicationService
 {
-    protected BookstoreAppService()
+    protected BookStoreAppService()
     {
-        LocalizationResource = typeof(BookstoreResource);
+        LocalizationResource = typeof(BookStoreResource);
     }
 }

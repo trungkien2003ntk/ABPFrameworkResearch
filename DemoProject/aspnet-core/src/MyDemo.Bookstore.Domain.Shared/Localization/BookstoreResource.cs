@@ -1,9 +1,9 @@
 ﻿using Volo.Abp.Localization;
 
-namespace MyDemo.Bookstore.Localization;
+namespace MyDemo.BookStore.Localization;
 
-[LocalizationResourceName("Bookstore")]
-public class BookstoreResource
+[LocalizationResourceName("BookStore")]
+public class BookStoreResource
 {
 
 }

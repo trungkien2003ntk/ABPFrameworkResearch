@@ -1,12 +1,12 @@
 ﻿using Volo.Abp.Modularity;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
 [DependsOn(
-    typeof(BookstoreDomainModule),
-    typeof(BookstoreTestBaseModule)
+    typeof(BookStoreDomainModule),
+    typeof(BookStoreTestBaseModule)
 )]
-public class BookstoreDomainTestModule : AbpModule
+public class BookStoreDomainTestModule : AbpModule
 {
 
 }
