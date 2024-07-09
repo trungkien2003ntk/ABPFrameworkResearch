@@ -1,4 +1,4 @@
 ﻿using Xunit;
 
-namespace MyDemo.Bookstore.Books;
+namespace MyDemo.BookStore.Books;
 

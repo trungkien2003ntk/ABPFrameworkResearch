@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using MyDemo.Bookstore.Books;
+using MyDemo.BookStore.Books;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
-public class BookstoreApplicationAutoMapperProfile : Profile
+public class BookStoreApplicationAutoMapperProfile : Profile
 {
-    public BookstoreApplicationAutoMapperProfile()
+    public BookStoreApplicationAutoMapperProfile()
     {
         CreateMap<Book, BookDto>();
         CreateMap<CreateUpdateBookDto, Book>();

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 
-namespace MyDemo.Bookstore.DbMigrator;
+namespace MyDemo.BookStore.DbMigrator;
 
 class Program
 {
@@ -18,9 +18,9 @@ class Program
             .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
             .MinimumLevel.Override("Volo.Abp", LogEventLevel.Warning)
 #if DEBUG
-                .MinimumLevel.Override("MyDemo.Bookstore", LogEventLevel.Debug)
+                .MinimumLevel.Override("MyDemo.BookStore", LogEventLevel.Debug)
 #else
-                .MinimumLevel.Override("MyDemo.Bookstore", LogEventLevel.Information)
+                .MinimumLevel.Override("MyDemo.BookStore", LogEventLevel.Information)
 #endif
                 .Enrich.FromLogContext()
             .WriteTo.Async(c => c.File("Logs/logs.txt"))

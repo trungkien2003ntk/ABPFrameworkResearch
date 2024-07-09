@@ -3,16 +3,16 @@ using Volo.Abp.Identity;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.Threading;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore;
+namespace MyDemo.BookStore.EntityFrameworkCore;
 
-public static class BookstoreEfCoreEntityExtensionMappings
+public static class BookStoreEfCoreEntityExtensionMappings
 {
     private static readonly OneTimeRunner OneTimeRunner = new OneTimeRunner();
 
     public static void Configure()
     {
-        BookstoreGlobalFeatureConfigurator.Configure();
-        BookstoreModuleExtensionConfigurator.Configure();
+        BookStoreGlobalFeatureConfigurator.Configure();
+        BookStoreModuleExtensionConfigurator.Configure();
 
         OneTimeRunner.Run(() =>
         {
@@ -22,7 +22,7 @@ public static class BookstoreEfCoreEntityExtensionMappings
                  * This class can be used to map these extra properties to table fields in the database.
                  *
                  * USE THIS CLASS ONLY TO CONFIGURE EF CORE RELATED MAPPING.
-                 * USE BookstoreModuleExtensionConfigurator CLASS (in the Domain.Shared project)
+                 * USE BookStoreModuleExtensionConfigurator CLASS (in the Domain.Shared project)
                  * FOR A HIGH LEVEL API TO DEFINE EXTRA PROPERTIES TO ENTITIES OF THE USED MODULES
                  *
                  * Example: Map a property to a table field:

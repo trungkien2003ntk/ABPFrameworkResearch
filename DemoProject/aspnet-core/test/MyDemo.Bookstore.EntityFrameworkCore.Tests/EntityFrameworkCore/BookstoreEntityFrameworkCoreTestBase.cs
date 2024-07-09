@@ -1,8 +1,8 @@
 ﻿using Volo.Abp;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore;
+namespace MyDemo.BookStore.EntityFrameworkCore;
 
-public abstract class BookstoreEntityFrameworkCoreTestBase : BookstoreTestBase<BookstoreEntityFrameworkCoreTestModule>
+public abstract class BookStoreEntityFrameworkCoreTestBase : BookStoreTestBase<BookStoreEntityFrameworkCoreTestModule>
 {
 
 }

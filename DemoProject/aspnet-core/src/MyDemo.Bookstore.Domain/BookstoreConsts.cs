@@ -1,6 +1,6 @@
-﻿namespace MyDemo.Bookstore;
+﻿namespace MyDemo.BookStore;
 
-public static class BookstoreConsts
+public static class BookStoreConsts
 {
     public const string DbTablePrefix = "App";
 

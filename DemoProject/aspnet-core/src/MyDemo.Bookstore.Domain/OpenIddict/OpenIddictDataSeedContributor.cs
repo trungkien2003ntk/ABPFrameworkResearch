@@ -16,7 +16,7 @@ using Volo.Abp.OpenIddict.Scopes;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.Uow;
 
-namespace MyDemo.Bookstore.OpenIddict;
+namespace MyDemo.BookStore.OpenIddict;
 
 /* Creates initial data that is needed to property run the application
  * and make client-to-server communication possible.
@@ -58,10 +58,10 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
 
     private async Task CreateScopesAsync()
     {
-        if (await _openIddictScopeRepository.FindByNameAsync("Bookstore") == null)
+        if (await _openIddictScopeRepository.FindByNameAsync("BookStore") == null)
         {
             await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor {
-                Name = "Bookstore", DisplayName = "Bookstore API", Resources = { "Bookstore" }
+                Name = "BookStore", DisplayName = "BookStore API", Resources = { "BookStore" }
             });
         }
     }
@@ -74,17 +74,17 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             OpenIddictConstants.Permissions.Scopes.Phone,
             OpenIddictConstants.Permissions.Scopes.Profile,
             OpenIddictConstants.Permissions.Scopes.Roles,
-            "Bookstore"
+            "BookStore"
         };
 
         var configurationSection = _configuration.GetSection("OpenIddict:Applications");
 
 
         //Console Test / Angular Client
-        var consoleAndAngularClientId = configurationSection["Bookstore_App:ClientId"];
+        var consoleAndAngularClientId = configurationSection["BookStore_App:ClientId"];
         if (!consoleAndAngularClientId.IsNullOrWhiteSpace())
         {
-            var consoleAndAngularClientRootUrl = configurationSection["Bookstore_App:RootUrl"]?.TrimEnd('/');
+            var consoleAndAngularClientRootUrl = configurationSection["BookStore_App:RootUrl"]?.TrimEnd('/');
             await CreateApplicationAsync(
                 name: consoleAndAngularClientId!,
                 type: OpenIddictConstants.ClientTypes.Public,
@@ -108,10 +108,10 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
 
 
         // Swagger Client
-        var swaggerClientId = configurationSection["Bookstore_Swagger:ClientId"];
+        var swaggerClientId = configurationSection["BookStore_Swagger:ClientId"];
         if (!swaggerClientId.IsNullOrWhiteSpace())
         {
-            var swaggerRootUrl = configurationSection["Bookstore_Swagger:RootUrl"]?.TrimEnd('/');
+            var swaggerRootUrl = configurationSection["BookStore_Swagger:RootUrl"]?.TrimEnd('/');
 
             await CreateApplicationAsync(
                 name: swaggerClientId!,

@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MyDemo.Bookstore.Data;
+using MyDemo.BookStore.Data;
 using Serilog;
 using Volo.Abp;
 using Volo.Abp.Data;
 
-namespace MyDemo.Bookstore.DbMigrator;
+namespace MyDemo.BookStore.DbMigrator;
 
 public class DbMigratorHostedService : IHostedService
 {
@@ -23,7 +23,7 @@ public class DbMigratorHostedService : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        using (var application = await AbpApplicationFactory.CreateAsync<BookstoreDbMigratorModule>(options =>
+        using (var application = await AbpApplicationFactory.CreateAsync<BookStoreDbMigratorModule>(options =>
         {
            options.Services.ReplaceConfiguration(_configuration);
            options.UseAutofac();
@@ -35,7 +35,7 @@ public class DbMigratorHostedService : IHostedService
 
             await application
                 .ServiceProvider
-                .GetRequiredService<BookstoreDbMigrationService>()
+                .GetRequiredService<BookStoreDbMigrationService>()
                 .MigrateAsync();
 
             await application.ShutdownAsync();

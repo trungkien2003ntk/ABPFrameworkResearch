@@ -1,9 +1,9 @@
-﻿using MyDemo.Bookstore.Books;
+﻿using MyDemo.BookStore.Books;
 using Xunit;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore.Applications.Books;
+namespace MyDemo.BookStore.EntityFrameworkCore.Applications.Books;
 
-[Collection(BookstoreTestConsts.CollectionDefinitionName)]
-public class EfCoreBookAppService_Tests : BookAppService_Tests<BookstoreEntityFrameworkCoreTestModule>
+[Collection(BookStoreTestConsts.CollectionDefinitionName)]
+public class EfCoreBookAppService_Tests : BookAppService_Tests<BookStoreEntityFrameworkCoreTestModule>
 {
 }

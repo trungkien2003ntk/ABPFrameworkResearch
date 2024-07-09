@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
-[assembly:InternalsVisibleToAttribute("MyDemo.Bookstore.Domain.Tests")]
-[assembly:InternalsVisibleToAttribute("MyDemo.Bookstore.TestBase")]
+[assembly:InternalsVisibleToAttribute("MyDemo.BookStore.Domain.Tests")]
+[assembly:InternalsVisibleToAttribute("MyDemo.BookStore.TestBase")]

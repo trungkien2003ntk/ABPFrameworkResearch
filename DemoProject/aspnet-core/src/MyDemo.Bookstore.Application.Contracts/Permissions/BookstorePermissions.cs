@@ -1,8 +1,8 @@
-﻿namespace MyDemo.Bookstore.Permissions;
+﻿namespace MyDemo.BookStore.Permissions;
 
-public static class BookstorePermissions
+public static class BookStorePermissions
 {
-    public const string GroupName = "Bookstore";
+    public const string GroupName = "BookStore";
 
     public static class Books
     {

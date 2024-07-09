@@ -12,14 +12,14 @@ using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.Uow;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore;
+namespace MyDemo.BookStore.EntityFrameworkCore;
 
 [DependsOn(
-    typeof(BookstoreApplicationTestModule),
-    typeof(BookstoreEntityFrameworkCoreModule),
+    typeof(BookStoreApplicationTestModule),
+    typeof(BookStoreEntityFrameworkCoreModule),
     typeof(AbpEntityFrameworkCoreSqliteModule)
     )]
-public class BookstoreEntityFrameworkCoreTestModule : AbpModule
+public class BookStoreEntityFrameworkCoreTestModule : AbpModule
 {
     private SqliteConnection? _sqliteConnection;
 
@@ -70,11 +70,11 @@ public class BookstoreEntityFrameworkCoreTestModule : AbpModule
         var connection = new AbpUnitTestSqliteConnection("Data Source=:memory:");
         connection.Open();
 
-        var options = new DbContextOptionsBuilder<BookstoreDbContext>()
+        var options = new DbContextOptionsBuilder<BookStoreDbContext>()
             .UseSqlite(connection)
             .Options;
 
-        using (var context = new BookstoreDbContext(options))
+        using (var context = new BookStoreDbContext(options))
         {
             context.GetService<IRelationalDatabaseCreator>().CreateTables();
         }

@@ -1,8 +1,8 @@
 using System;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore;
+namespace MyDemo.BookStore.EntityFrameworkCore;
 
-public class BookstoreEntityFrameworkCoreFixture : IDisposable
+public class BookStoreEntityFrameworkCoreFixture : IDisposable
 {
     public void Dispose()
     {

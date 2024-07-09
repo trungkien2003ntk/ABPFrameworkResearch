@@ -2,17 +2,17 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MyDemo.Bookstore.Data;
+using MyDemo.BookStore.Data;
 using Volo.Abp.DependencyInjection;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore;
+namespace MyDemo.BookStore.EntityFrameworkCore;
 
-public class EntityFrameworkCoreBookstoreDbSchemaMigrator
-    : IBookstoreDbSchemaMigrator, ITransientDependency
+public class EntityFrameworkCoreBookStoreDbSchemaMigrator
+    : IBookStoreDbSchemaMigrator, ITransientDependency
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public EntityFrameworkCoreBookstoreDbSchemaMigrator(
+    public EntityFrameworkCoreBookStoreDbSchemaMigrator(
         IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
@@ -20,14 +20,14 @@ public class EntityFrameworkCoreBookstoreDbSchemaMigrator
 
     public async Task MigrateAsync()
     {
-        /* We intentionally resolve the BookstoreDbContext
+        /* We intentionally resolve the BookStoreDbContext
          * from IServiceProvider (instead of directly injecting it)
          * to properly get the connection string of the current tenant in the
          * current scope.
          */
 
         await _serviceProvider
-            .GetRequiredService<BookstoreDbContext>()
+            .GetRequiredService<BookStoreDbContext>()
             .Database
             .MigrateAsync();
     }

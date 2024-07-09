@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MyDemo.Bookstore.EntityFrameworkCore;
-using MyDemo.Bookstore.MultiTenancy;
+using MyDemo.BookStore.EntityFrameworkCore;
+using MyDemo.BookStore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
 using Microsoft.OpenApi.Models;
@@ -30,20 +30,20 @@ using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
 [DependsOn(
-    typeof(BookstoreHttpApiModule),
+    typeof(BookStoreHttpApiModule),
     typeof(AbpAutofacModule),
     typeof(AbpAspNetCoreMultiTenancyModule),
-    typeof(BookstoreApplicationModule),
-    typeof(BookstoreEntityFrameworkCoreModule),
+    typeof(BookStoreApplicationModule),
+    typeof(BookStoreEntityFrameworkCoreModule),
     typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)
 )]
-public class BookstoreHttpApiHostModule : AbpModule
+public class BookStoreHttpApiHostModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
@@ -51,7 +51,7 @@ public class BookstoreHttpApiHostModule : AbpModule
         {
             builder.AddValidation(options =>
             {
-                options.AddAudiences("Bookstore");
+                options.AddAudiences("BookStore");
                 options.UseLocalServer();
                 options.UseAspNetCore();
             });
@@ -115,18 +115,18 @@ public class BookstoreHttpApiHostModule : AbpModule
         {
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
-                options.FileSets.ReplaceEmbeddedByPhysical<BookstoreDomainSharedModule>(
+                options.FileSets.ReplaceEmbeddedByPhysical<BookStoreDomainSharedModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}MyDemo.Bookstore.Domain.Shared"));
-                options.FileSets.ReplaceEmbeddedByPhysical<BookstoreDomainModule>(
+                        $"..{Path.DirectorySeparatorChar}MyDemo.BookStore.Domain.Shared"));
+                options.FileSets.ReplaceEmbeddedByPhysical<BookStoreDomainModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}MyDemo.Bookstore.Domain"));
-                options.FileSets.ReplaceEmbeddedByPhysical<BookstoreApplicationContractsModule>(
+                        $"..{Path.DirectorySeparatorChar}MyDemo.BookStore.Domain"));
+                options.FileSets.ReplaceEmbeddedByPhysical<BookStoreApplicationContractsModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}MyDemo.Bookstore.Application.Contracts"));
-                options.FileSets.ReplaceEmbeddedByPhysical<BookstoreApplicationModule>(
+                        $"..{Path.DirectorySeparatorChar}MyDemo.BookStore.Application.Contracts"));
+                options.FileSets.ReplaceEmbeddedByPhysical<BookStoreApplicationModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}MyDemo.Bookstore.Application"));
+                        $"..{Path.DirectorySeparatorChar}MyDemo.BookStore.Application"));
             });
         }
     }
@@ -135,7 +135,7 @@ public class BookstoreHttpApiHostModule : AbpModule
     {
         Configure<AbpAspNetCoreMvcOptions>(options =>
         {
-            options.ConventionalControllers.Create(typeof(BookstoreApplicationModule).Assembly);
+            options.ConventionalControllers.Create(typeof(BookStoreApplicationModule).Assembly);
         });
     }
 
@@ -145,11 +145,11 @@ public class BookstoreHttpApiHostModule : AbpModule
             configuration["AuthServer:Authority"]!,
             new Dictionary<string, string>
             {
-                    {"Bookstore", "Bookstore API"}
+                    {"BookStore", "BookStore API"}
             },
             options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Bookstore API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStore API", Version = "v1" });
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });
@@ -210,11 +210,11 @@ public class BookstoreHttpApiHostModule : AbpModule
         app.UseSwagger();
         app.UseAbpSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bookstore API");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookStore API");
 
             var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
             c.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
-            c.OAuthScopes("Bookstore");
+            c.OAuthScopes("BookStore");
         });
 
         app.UseAuditing();

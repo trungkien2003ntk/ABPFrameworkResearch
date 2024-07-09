@@ -1,23 +1,23 @@
-﻿using MyDemo.Bookstore.Localization;
+﻿using MyDemo.BookStore.Localization;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
 
-namespace MyDemo.Bookstore.Permissions;
+namespace MyDemo.BookStore.Permissions;
 
-public class BookstorePermissionDefinitionProvider : PermissionDefinitionProvider
+public class BookStorePermissionDefinitionProvider : PermissionDefinitionProvider
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-        var bookStoreGroup = context.AddGroup(BookstorePermissions.GroupName, L("Permission:Bookstore"));
+        var bookStoreGroup = context.AddGroup(BookStorePermissions.GroupName, L("Permission:BookStore"));
 
-        var booksPermission = bookStoreGroup.AddPermission(BookstorePermissions.Books.Default, L("Permission:Books"));
-        booksPermission.AddChild(BookstorePermissions.Books.Create, L("Permission:Books.Create"));
-        booksPermission.AddChild(BookstorePermissions.Books.Edit, L("Permission:Books.Edit"));
-        booksPermission.AddChild(BookstorePermissions.Books.Delete, L("Permission:Books.Delete"));
+        var booksPermission = bookStoreGroup.AddPermission(BookStorePermissions.Books.Default, L("Permission:Books"));
+        booksPermission.AddChild(BookStorePermissions.Books.Create, L("Permission:Books.Create"));
+        booksPermission.AddChild(BookStorePermissions.Books.Edit, L("Permission:Books.Edit"));
+        booksPermission.AddChild(BookStorePermissions.Books.Delete, L("Permission:Books.Delete"));
     }
 
     private static LocalizableString L(string name)
     {
-        return LocalizableString.Create<BookstoreResource>(name);
+        return LocalizableString.Create<BookStoreResource>(name);
     }
 }

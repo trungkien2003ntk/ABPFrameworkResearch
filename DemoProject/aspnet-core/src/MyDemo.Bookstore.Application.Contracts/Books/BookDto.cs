@@ -1,7 +1,7 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
 
-namespace MyDemo.Bookstore.Books;
+namespace MyDemo.BookStore.Books;
 
 public class BookDto : AuditedEntityDto<Guid>
 {

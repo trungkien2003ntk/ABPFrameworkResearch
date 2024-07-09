@@ -7,15 +7,15 @@ using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
 using Xunit;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore.Samples;
+namespace MyDemo.BookStore.EntityFrameworkCore.Samples;
 
 /* This is just an example test class.
  * Normally, you don't test ABP framework code
  * (like default AppUser repository IRepository<AppUser, Guid> here).
  * Only test your custom repository methods.
  */
-[Collection(BookstoreTestConsts.CollectionDefinitionName)]
-public class SampleRepositoryTests : BookstoreEntityFrameworkCoreTestBase
+[Collection(BookStoreTestConsts.CollectionDefinitionName)]
+public class SampleRepositoryTests : BookStoreEntityFrameworkCoreTestBase
 {
     private readonly IRepository<IdentityUser, Guid> _appUserRepository;
 

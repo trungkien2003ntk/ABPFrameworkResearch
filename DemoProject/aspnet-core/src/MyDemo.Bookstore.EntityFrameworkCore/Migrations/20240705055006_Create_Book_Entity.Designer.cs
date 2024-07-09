@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MyDemo.Bookstore.EntityFrameworkCore;
+using MyDemo.BookStore.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
 #nullable disable
 
-namespace MyDemo.Bookstore.Migrations
+namespace MyDemo.BookStore.Migrations
 {
-    [DbContext(typeof(BookstoreDbContext))]
+    [DbContext(typeof(BookStoreDbContext))]
     [Migration("20240705055006_Create_Book_Entity")]
     partial class Create_Book_Entity
     {
@@ -27,7 +27,7 @@ namespace MyDemo.Bookstore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MyDemo.Bookstore.Books.Book", b =>
+            modelBuilder.Entity("MyDemo.BookStore.Books.Book", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");

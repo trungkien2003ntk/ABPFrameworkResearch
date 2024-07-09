@@ -4,7 +4,7 @@ using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
 
-namespace MyDemo.Bookstore.Books;
+namespace MyDemo.BookStore.Books;
 
 public class BookStoreDataSeederContributor
     : IDataSeedContributor, ITransientDependency

@@ -6,14 +6,14 @@ using Volo.Abp.Http.Client;
 using Volo.Abp.Http.Client.IdentityModel;
 using Volo.Abp.Modularity;
 
-namespace MyDemo.Bookstore.HttpApi.Client.ConsoleTestApp;
+namespace MyDemo.BookStore.HttpApi.Client.ConsoleTestApp;
 
 [DependsOn(
     typeof(AbpAutofacModule),
-    typeof(BookstoreHttpApiClientModule),
+    typeof(BookStoreHttpApiClientModule),
     typeof(AbpHttpClientIdentityModelModule)
     )]
-public class BookstoreConsoleApiClientModule : AbpModule
+public class BookStoreConsoleApiClientModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

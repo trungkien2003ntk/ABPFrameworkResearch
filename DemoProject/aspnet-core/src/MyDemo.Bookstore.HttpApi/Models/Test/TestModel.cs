@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyDemo.Bookstore.Models.Test;
+namespace MyDemo.BookStore.Models.Test;
 
 public class TestModel
 {

@@ -1,4 +1,4 @@
-﻿namespace MyDemo.Bookstore.Books;
+﻿namespace MyDemo.BookStore.Books;
 
 public enum BookType
 {

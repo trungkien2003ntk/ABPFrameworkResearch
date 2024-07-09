@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System;
 
-namespace MyDemo.Bookstore.Books;
+namespace MyDemo.BookStore.Books;
 
 public class CreateUpdateBookDto
 {

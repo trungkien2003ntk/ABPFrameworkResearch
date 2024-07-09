@@ -1,9 +1,9 @@
 ﻿using Xunit;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore;
+namespace MyDemo.BookStore.EntityFrameworkCore;
 
-[CollectionDefinition(BookstoreTestConsts.CollectionDefinitionName)]
-public class BookstoreEntityFrameworkCoreCollection : ICollectionFixture<BookstoreEntityFrameworkCoreFixture>
+[CollectionDefinition(BookStoreTestConsts.CollectionDefinitionName)]
+public class BookStoreEntityFrameworkCoreCollection : ICollectionFixture<BookStoreEntityFrameworkCoreFixture>
 {
 
 }

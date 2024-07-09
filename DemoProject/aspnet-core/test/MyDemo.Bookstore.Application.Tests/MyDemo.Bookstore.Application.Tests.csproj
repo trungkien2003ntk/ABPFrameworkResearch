@@ -5,12 +5,12 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <RootNamespace>MyDemo.Bookstore</RootNamespace>
+    <RootNamespace>MyDemo.BookStore</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\MyDemo.Bookstore.Application\MyDemo.Bookstore.Application.csproj" />
-    <ProjectReference Include="..\MyDemo.Bookstore.Domain.Tests\MyDemo.Bookstore.Domain.Tests.csproj" />
+    <ProjectReference Include="..\..\src\MyDemo.BookStore.Application\MyDemo.BookStore.Application.csproj" />
+    <ProjectReference Include="..\MyDemo.BookStore.Domain.Tests\MyDemo.BookStore.Domain.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

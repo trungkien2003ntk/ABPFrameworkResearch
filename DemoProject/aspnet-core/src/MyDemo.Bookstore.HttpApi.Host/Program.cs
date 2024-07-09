@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 
-namespace MyDemo.Bookstore;
+namespace MyDemo.BookStore;
 
 public class Program
 {
@@ -27,12 +27,12 @@ public class Program
 
         try
         {
-            Log.Information("Starting MyDemo.Bookstore.HttpApi.Host.");
+            Log.Information("Starting MyDemo.BookStore.HttpApi.Host.");
             var builder = WebApplication.CreateBuilder(args);
             builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();
-            await builder.AddApplicationAsync<BookstoreHttpApiHostModule>();
+            await builder.AddApplicationAsync<BookStoreHttpApiHostModule>();
             var app = builder.Build();
             await app.InitializeApplicationAsync();
             await app.RunAsync();

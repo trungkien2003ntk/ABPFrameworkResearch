@@ -1,5 +1,5 @@
-﻿using MyDemo.Bookstore;
-using MyDemo.Bookstore.Books;
+﻿using MyDemo.BookStore;
+using MyDemo.BookStore.Books;
 using Shouldly;
 using System;
 using System.Linq;
@@ -9,9 +9,9 @@ using Volo.Abp.Modularity;
 using Volo.Abp.Validation;
 using Xunit;
 
-namespace MyDemo.Bookstore.Books;
+namespace MyDemo.BookStore.Books;
 
-public abstract class BookAppService_Tests<TStartupModule> : BookstoreApplicationTestBase<TStartupModule>
+public abstract class BookAppService_Tests<TStartupModule> : BookStoreApplicationTestBase<TStartupModule>
     where TStartupModule : IAbpModule
 {
     private readonly IBooksAppService _bookAppService;

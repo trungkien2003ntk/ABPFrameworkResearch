@@ -1,9 +1,9 @@
-﻿using MyDemo.Bookstore.EntityFrameworkCore;
+﻿using MyDemo.BookStore.EntityFrameworkCore;
 using Xunit;
 
-namespace MyDemo.Bookstore.EntityFrameworkCore;
+namespace MyDemo.BookStore.EntityFrameworkCore;
 
-public class BookstoreEntityFrameworkCoreCollectionFixtureBase : ICollectionFixture<BookstoreEntityFrameworkCoreFixture>
+public class BookStoreEntityFrameworkCoreCollectionFixtureBase : ICollectionFixture<BookStoreEntityFrameworkCoreFixture>
 {
 
 }

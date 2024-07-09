@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace MyDemo.Bookstore.Data;
+namespace MyDemo.BookStore.Data;
 
-public interface IBookstoreDbSchemaMigrator
+public interface IBookStoreDbSchemaMigrator
 {
     Task MigrateAsync();
 }

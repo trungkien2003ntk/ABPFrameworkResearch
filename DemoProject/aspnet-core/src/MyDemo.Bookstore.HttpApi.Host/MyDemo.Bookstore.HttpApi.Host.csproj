@@ -1,13 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <Import Project="..\..\common.props" />
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <RootNamespace>MyDemo.Bookstore</RootNamespace>
+    <RootNamespace>MyDemo.BookStore</RootNamespace>
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
-    <UserSecretsId>MyDemo.Bookstore-4681b4fd-151f-4221-84a4-929d86723e4c</UserSecretsId>
+    <UserSecretsId>MyDemo.BookStore-4681b4fd-151f-4221-84a4-929d86723e4c</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,9 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyDemo.Bookstore.Application\MyDemo.Bookstore.Application.csproj" />
-    <ProjectReference Include="..\MyDemo.Bookstore.EntityFrameworkCore\MyDemo.Bookstore.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\MyDemo.Bookstore.HttpApi\MyDemo.Bookstore.HttpApi.csproj" />
+    <ProjectReference Include="..\MyDemo.BookStore.Application\MyDemo.BookStore.Application.csproj" />
+    <ProjectReference Include="..\MyDemo.BookStore.EntityFrameworkCore\MyDemo.BookStore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\MyDemo.BookStore.HttpApi\MyDemo.BookStore.HttpApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

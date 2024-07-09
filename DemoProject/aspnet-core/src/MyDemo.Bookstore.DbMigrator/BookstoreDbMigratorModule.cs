@@ -1,14 +1,14 @@
-﻿using MyDemo.Bookstore.EntityFrameworkCore;
+﻿using MyDemo.BookStore.EntityFrameworkCore;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
 
-namespace MyDemo.Bookstore.DbMigrator;
+namespace MyDemo.BookStore.DbMigrator;
 
 [DependsOn(
     typeof(AbpAutofacModule),
-    typeof(BookstoreEntityFrameworkCoreModule),
-    typeof(BookstoreApplicationContractsModule)
+    typeof(BookStoreEntityFrameworkCoreModule),
+    typeof(BookStoreApplicationContractsModule)
     )]
-public class BookstoreDbMigratorModule : AbpModule
+public class BookStoreDbMigratorModule : AbpModule
 {
 }

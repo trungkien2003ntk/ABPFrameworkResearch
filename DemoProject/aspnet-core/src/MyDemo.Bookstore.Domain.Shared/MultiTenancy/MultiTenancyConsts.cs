@@ -1,4 +1,4 @@
-﻿namespace MyDemo.Bookstore.MultiTenancy;
+﻿namespace MyDemo.BookStore.MultiTenancy;
 
 public static class MultiTenancyConsts
 {

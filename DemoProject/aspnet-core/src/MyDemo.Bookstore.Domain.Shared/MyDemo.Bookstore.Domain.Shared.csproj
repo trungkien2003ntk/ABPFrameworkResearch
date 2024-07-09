@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <RootNamespace>MyDemo.Bookstore</RootNamespace>
+    <RootNamespace>MyDemo.BookStore</RootNamespace>
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
   </PropertyGroup>
 
@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Localization\Bookstore\*.json" />
-    <Content Remove="Localization\Bookstore\*.json" />
+    <EmbeddedResource Include="Localization\BookStore\*.json" />
+    <Content Remove="Localization\BookStore\*.json" />
   </ItemGroup>
 
   <ItemGroup>
