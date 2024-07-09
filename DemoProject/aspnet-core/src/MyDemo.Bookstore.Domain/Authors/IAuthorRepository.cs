@@ -15,4 +15,6 @@ public interface IAuthorRepository : IRepository<Author, Guid>
         string sorting,
         string? filter = null
     );
+
+    Task TestStoredProcedure(int value);
 }

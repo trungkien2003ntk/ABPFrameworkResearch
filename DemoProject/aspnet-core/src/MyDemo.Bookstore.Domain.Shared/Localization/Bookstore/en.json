@@ -6,14 +6,15 @@
     "Exceptions:BookStore:00003": "An author with the name '{name}' already exists.",
     "Exceptions:AbpValidation:InvalidInput": "The provided input is invalid.",
     "Exceptions:AbpAuthorization:UnauthorizedAccess": "You are not authorized to perform this action.",
+    "Exceptions:StoredProcedureError": "We couldn't complete your request due to a database error. Please try again later or contact support. (Details: {0})",
 
     "Welcome": "Welcome",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
-    
+
     "Menu:Home": "Home",
     "Menu:BookStore": "Book Store",
     "Menu:Books": "Books",
-    
+
     "Actions": "Actions",
     "Close": "Close",
     "Delete": "Delete",
@@ -24,10 +25,10 @@
     "Type": "Type",
     "Price": "Price",
     "CreationTime": "Creation time",
-    
+
     "AreYouSure": "Are you sure?",
     "AreYouSureToDelete": "Are you sure you want to delete this item?",
-    
+
     "Enum:BookType.0": "Undefined",
     "Enum:BookType.1": "Adventure",
     "Enum:BookType.2": "Biography",

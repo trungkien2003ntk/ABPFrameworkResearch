@@ -1,5 +1,4 @@
-﻿using AsyncKeyedLock;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using MyDemo.BookStore.Permissions;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,6 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
-using static MyDemo.BookStore.Permissions.BookStorePermissions;
 
 namespace MyDemo.BookStore.Authors;
 
@@ -29,6 +27,19 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
         var author = await _authorRepository.FindByNameAsync(name);
 
         return ObjectMapper.Map<Author, AuthorDto>(author);
+    }
+
+    public async Task TestStoredProcedureAsync(int value)
+    {
+        try
+        {
+            await _authorRepository.TestStoredProcedure(value);
+        }
+        catch (BusinessException ex)
+        {
+            throw new BusinessException(BookStoreDomainErrorCodes.StoredProcedureError, message: L[BookStoreDomainErrorCodes.StoredProcedureError])
+                .WithData("{0}", ex.Message);
+        }
     }
 
     public async Task<AuthorDto> GetAsync(Guid id)

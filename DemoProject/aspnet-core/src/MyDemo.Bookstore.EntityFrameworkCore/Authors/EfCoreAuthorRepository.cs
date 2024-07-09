@@ -9,12 +9,16 @@ using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Dapper;
 using System.Data;
+using Volo.Abp;
+using Microsoft.Extensions.Localization;
 
 namespace MyDemo.BookStore.Authors;
 
 public class EfCoreAuthorRepository : EfCoreRepository<BookStoreDbContext, Author, Guid>, IAuthorRepository
 {
-    public EfCoreAuthorRepository(IDbContextProvider<BookStoreDbContext> dbContextProvider) : base(dbContextProvider) { }
+    public EfCoreAuthorRepository(IDbContextProvider<BookStoreDbContext> dbContextProvider) : base(dbContextProvider)
+    {
+    }
 
     public async Task<Author> FindByNameAsync(string name)
     {
@@ -41,6 +45,26 @@ public class EfCoreAuthorRepository : EfCoreRepository<BookStoreDbContext, Autho
         //);
 
         return author;
+    }
+
+    public async Task TestStoredProcedure(int value)
+    {
+        var conn = await GetDbConnectionAsync();
+        var p = new DynamicParameters();
+        p.Add("@Param1", value);
+        p.Add("@ErrorMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 255);
+
+        await conn.ExecuteAsync(
+            "spTestErrorMessage",
+            p,
+            transaction: await GetDbTransactionAsync(),
+            commandType: CommandType.StoredProcedure);
+
+        var errorMessage = p.Get<string>("@ErrorMessage");
+        if (!string.IsNullOrEmpty(errorMessage))
+        {
+            throw new BusinessException(message: errorMessage);
+        }
     }
 
     public async Task<List<Author>> GetListAsync(int skipCount, int maxResultCount, string sorting, string? filter = null)
