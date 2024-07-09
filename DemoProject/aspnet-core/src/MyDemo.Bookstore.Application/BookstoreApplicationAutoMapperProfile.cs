@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MyDemo.BookStore.Authors;
 using MyDemo.BookStore.Books;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -11,5 +12,6 @@ public class BookStoreApplicationAutoMapperProfile : Profile
     {
         CreateMap<Book, BookDto>();
         CreateMap<CreateUpdateBookDto, Book>();
+        CreateMap<Author, AuthorDto>();
     }
 }

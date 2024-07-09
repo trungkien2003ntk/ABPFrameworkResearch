@@ -20,14 +20,14 @@ public class EfCoreAuthorRepository : EfCoreRepository<BookStoreDbContext, Autho
         return await dbSet.FirstOrDefaultAsync(author => author.Name == name);
     }
 
-    public async Task<List<Author>> GetListAsync(int skipCount, int maxResultCount, string sorting, string filter = null)
+    public async Task<List<Author>> GetListAsync(int skipCount, int maxResultCount, string sorting, string? filter = null)
     {
         var dbSet = await GetDbSetAsync();
 
         return await dbSet
             .WhereIf(
                 !filter.IsNullOrWhiteSpace(),
-                author => author.Name.Contains(filter)
+                author => author.Name.Contains(filter!)
                 )
             .OrderBy(sorting) // this is from using System.Linq.Dynamic.Core; the sorting can be Name, Name ASC or Name DESC
             .Skip(skipCount)
