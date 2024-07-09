@@ -263,6 +263,3 @@ src/MyDemo.Bookstore.Blazor.Server.Tiered/Logs/*
 
 # Use abp install-libs to restore.
 **/wwwroot/libs/*
-
-**/appsettings.json
-**/appsettings.*.json
