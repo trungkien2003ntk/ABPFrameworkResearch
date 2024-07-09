@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
+using Dapper;
+using System.Data;
 
 namespace MyDemo.BookStore.Authors;
 
@@ -16,8 +18,29 @@ public class EfCoreAuthorRepository : EfCoreRepository<BookStoreDbContext, Autho
 
     public async Task<Author> FindByNameAsync(string name)
     {
-        var dbSet = await GetDbSetAsync();
-        return await dbSet.FirstOrDefaultAsync(author => author.Name == name);
+        //// efcore way
+        //var dbSet = await GetDbSetAsync();
+        //return await dbSet.FirstOrDefaultAsync(author => author.Name == name);
+
+        //// Dapper Stored Procedure
+        var dbConnection = await GetDbConnectionAsync();
+        var parameters = new DynamicParameters();
+        parameters.Add("@name", name);
+
+        var author = await dbConnection.QueryFirstOrDefaultAsync<Author>(
+            "spGetAuthorByName",
+            parameters,
+            commandType: CommandType.StoredProcedure
+        );
+
+        // This is for Insert/Update/Delete Stored Procedure
+        //await dbConnection.ExecuteAsync(
+        //    "spGetAuthorByName",
+        //    parameters,
+        //    commandType: CommandType.StoredProcedure
+        //);
+
+        return author;
     }
 
     public async Task<List<Author>> GetListAsync(int skipCount, int maxResultCount, string sorting, string? filter = null)
@@ -33,6 +56,5 @@ public class EfCoreAuthorRepository : EfCoreRepository<BookStoreDbContext, Autho
             .Skip(skipCount)
             .Take(maxResultCount)
             .ToListAsync();
-            
     }
 }

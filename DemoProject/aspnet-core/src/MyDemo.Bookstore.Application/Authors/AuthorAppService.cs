@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AsyncKeyedLock;
+using Microsoft.AspNetCore.Authorization;
 using MyDemo.BookStore.Permissions;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,13 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
     {
         _authorRepository = authorRepository;
         _authorManager = authorManager;
+    }
+
+    public async Task<AuthorDto> GetByNameAsync(string name)
+    {
+        var author = await _authorRepository.FindByNameAsync(name);
+
+        return ObjectMapper.Map<Author, AuthorDto>(author);
     }
 
     public async Task<AuthorDto> GetAsync(Guid id)

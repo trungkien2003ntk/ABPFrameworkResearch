@@ -2,7 +2,7 @@
   "Culture": "en",
   "Texts": {
     "Exceptions:BookStore:00001": "The book with the specified ID was not found.",
-    "Exceptions:BookStore:00002": "The book price must be a positive number.",
+    "Exceptions:BookStore:00002": "The book with the specified name was not found.",
     "Exceptions:BookStore:00003": "An author with the name '{name}' already exists.",
     "Exceptions:AbpValidation:InvalidInput": "The provided input is invalid.",
     "Exceptions:AbpAuthorization:UnauthorizedAccess": "You are not authorized to perform this action.",
