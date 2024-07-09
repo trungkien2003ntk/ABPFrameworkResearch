@@ -1,4 +1,4 @@
-﻿using MyDemo.BookStore.Localization;
+using MyDemo.BookStore.Localization;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.FeatureManagement;
@@ -12,6 +12,7 @@ using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.Dapper;
 
 namespace MyDemo.BookStore;
 
@@ -25,7 +26,8 @@ namespace MyDemo.BookStore;
     typeof(AbpSettingManagementDomainSharedModule),
     typeof(AbpTenantManagementDomainSharedModule)    
     )]
-public class BookStoreDomainSharedModule : AbpModule
+[DependsOn(typeof(AbpDapperModule))]
+    public class BookStoreDomainSharedModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
