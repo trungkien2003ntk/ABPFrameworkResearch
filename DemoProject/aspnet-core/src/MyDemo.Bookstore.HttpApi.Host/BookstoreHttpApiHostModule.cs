@@ -31,6 +31,7 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.AspNetCore.ExceptionHandling;
 using System.Net;
+using MyDemo.BookStore.Middlewares;
 
 namespace MyDemo.BookStore;
 
@@ -156,18 +157,48 @@ public class BookStoreHttpApiHostModule : AbpModule
 
     private static void ConfigureSwaggerServices(ServiceConfigurationContext context, IConfiguration configuration)
     {
-        context.Services.AddAbpSwaggerGenWithOAuth(
-            configuration["AuthServer:Authority"]!,
-            new Dictionary<string, string>
+        //context.Services.AddAbpSwaggerGenWithOAuth(
+        //    configuration["AuthServer:Authority"]!,
+        //    new Dictionary<string, string>
+        //    {
+        //            {"BookStore", "BookStore API"}
+        //    },
+        //    options =>
+        //    {
+        //        options.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStore API", Version = "v1" });
+        //        options.DocInclusionPredicate((docName, description) => true);
+        //        options.CustomSchemaIds(type => type.FullName);
+        //    });
+
+        context.Services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStore API", Version = "v1" });
+            c.DocInclusionPredicate((docName, description) => true);
+            c.CustomSchemaIds(type => type.FullName);
+            c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
             {
-                    {"BookStore", "BookStore API"}
-            },
-            options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStore API", Version = "v1" });
-                options.DocInclusionPredicate((docName, description) => true);
-                options.CustomSchemaIds(type => type.FullName);
+                In = ParameterLocation.Header,
+                Name = "BookStore-Api-Key",
+                Type = SecuritySchemeType.ApiKey,
+                Description = "API Key Authentication",
+                Scheme = "ApiKeyScheme"
             });
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "ApiKey"
+                        },
+                        In = ParameterLocation.Header
+                    },
+                    new string[] { }
+                }
+            });
+        });
     }
 
     private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
@@ -212,26 +243,34 @@ public class BookStoreHttpApiHostModule : AbpModule
         app.UseRouting();
         app.UseCors();
         app.UseAuthentication();
-        app.UseAbpOpenIddictValidation();
+        //app.UseAbpOpenIddictValidation();
 
         if (MultiTenancyConsts.IsEnabled)
         {
             app.UseMultiTenancy();
         }
         app.UseUnitOfWork();
-        app.UseDynamicClaims();
+        //app.UseDynamicClaims();
         app.UseAuthorization();
 
         app.UseSwagger();
-        app.UseAbpSwaggerUI(c =>
+        app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookStore API");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API v1");
 
-            var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
-            c.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
-            c.OAuthScopes("BookStore");
+            // Add API Key support
         });
 
+        //app.UseAbpSwaggerUI(c =>
+        //{
+        //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookStore API");
+
+        //    var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
+        //    c.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
+        //    c.OAuthScopes("BookStore");
+        //});
+
+        app.UseMiddleware<ApiKeyMiddleware>();
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();

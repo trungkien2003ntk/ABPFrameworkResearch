@@ -26,6 +26,7 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
         _procedureRepository = procedureRepository;
     }
 
+    [Authorize]
     public async Task<AuthorDto> GetByNameAsync(string name)
     {
         var author = await _authorRepository.FindByNameAsync(name);
