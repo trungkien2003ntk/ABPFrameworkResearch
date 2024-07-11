@@ -31,15 +31,7 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
 
     public async Task TestStoredProcedureAsync(int value)
     {
-        try
-        {
-            await _authorRepository.TestStoredProcedure(value);
-        }
-        catch (BusinessException ex)
-        {
-            throw new BusinessException(BookStoreDomainErrorCodes.StoredProcedureError, message: L[BookStoreDomainErrorCodes.StoredProcedureError])
-                .WithData("{0}", ex.Message);
-        }
+        await _authorRepository.TestStoredProcedure(value);
     }
 
     public async Task<AuthorDto> GetAsync(Guid id)

@@ -54,7 +54,7 @@ namespace MyDemo.BookStore;
 
         Configure<AbpExceptionLocalizationOptions>(options =>
         {
-            options.MapCodeNamespace("BookStore", typeof(BookStoreResource));
+            options.MapCodeNamespace("BookStore.Error", typeof(BookStoreResource));
         });
     }
 }

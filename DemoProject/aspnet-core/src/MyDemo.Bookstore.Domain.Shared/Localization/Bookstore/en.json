@@ -1,12 +1,18 @@
 {
   "Culture": "en",
   "Texts": {
-    "Exceptions:BookStore:00001": "The book with the specified ID was not found.",
-    "Exceptions:BookStore:00002": "The book with the specified name was not found.",
-    "Exceptions:BookStore:00003": "An author with the name '{name}' already exists.",
-    "Exceptions:AbpValidation:InvalidInput": "The provided input is invalid.",
-    "Exceptions:AbpAuthorization:UnauthorizedAccess": "You are not authorized to perform this action.",
-    "Exceptions:StoredProcedureError": "We couldn't complete your request due to a database error. Please try again later or contact support. (Details: {0})",
+    // 10xxx: Business Rule Violation
+    "BookStore.Error:100101": "An author with the name '{name}' already exists.",
+
+    // 20xxx: Database or persistence-related errors
+    "BookStore.Error:200001": "An error occurred when executing the stored procedure. (Details: '{detail}')",
+
+    // 30xxx: Authentication and authorization issues
+
+    // 40xxx: Client-side errors (invalid input, resource not found)
+
+    // 90xxx: System-level or unexpected errors
+
 
     "Welcome": "Welcome",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",

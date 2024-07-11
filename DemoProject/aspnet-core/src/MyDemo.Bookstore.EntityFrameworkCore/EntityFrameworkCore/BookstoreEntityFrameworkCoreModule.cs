@@ -13,6 +13,8 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using System.Data;
+using Volo.Abp.Localization.ExceptionHandling;
+using MyDemo.BookStore.Localization;
 
 namespace MyDemo.BookStore.EntityFrameworkCore;
 
@@ -49,6 +51,12 @@ public class BookStoreEntityFrameworkCoreModule : AbpModule
                 /* The main point to change your DBMS.
                  * See also BookStoreMigrationsDbContextFactory for EF Core tooling. */
             options.UseSqlServer();
+        });
+
+        // Localization Exception Message
+        Configure<AbpExceptionLocalizationOptions>(options =>
+        {
+            options.MapCodeNamespace("BookStore", typeof(BookStoreResource));
         });
     }
 }

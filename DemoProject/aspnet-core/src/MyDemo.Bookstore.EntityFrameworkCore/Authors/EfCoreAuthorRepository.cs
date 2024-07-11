@@ -1,16 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
 using MyDemo.BookStore.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
-using Dapper;
-using System.Data;
-using Volo.Abp;
-using Microsoft.Extensions.Localization;
 
 namespace MyDemo.BookStore.Authors;
 
@@ -60,10 +59,12 @@ public class EfCoreAuthorRepository : EfCoreRepository<BookStoreDbContext, Autho
             transaction: await GetDbTransactionAsync(),
             commandType: CommandType.StoredProcedure);
 
+        
         var errorMessage = p.Get<string>("@ErrorMessage");
         if (!string.IsNullOrEmpty(errorMessage))
         {
-            throw new BusinessException(message: errorMessage);
+            throw new BusinessException(BookStoreDomainErrorCodes.StoredProcedureError, "Default Message")
+                .WithData("detail", errorMessage);
         }
     }
 

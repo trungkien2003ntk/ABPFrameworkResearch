@@ -2,7 +2,6 @@
 
 public static class BookStoreDomainErrorCodes
 {
-    public const string BookWithNameNotFound = "Exceptions:BookStore:00002";
-    public const string AuthorAlreadyExists = "Exceptions:BookStore:00003";
-    public const string StoredProcedureError = "Exceptions:StoredProcedureError";
+    public const string AuthorAlreadyExists = "BookStore.Error:100101";
+    public const string StoredProcedureError = "BookStore.Error:200001";
 }

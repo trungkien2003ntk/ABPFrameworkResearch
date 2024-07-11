@@ -30,6 +30,7 @@ using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.AspNetCore.ExceptionHandling;
+using System.Net;
 
 namespace MyDemo.BookStore;
 
@@ -73,10 +74,16 @@ public class BookStoreHttpApiHostModule : AbpModule
         ConfigureSwaggerServices(context, configuration);
 
         context.Services.AddLocalization();
-        Configure<AbpExceptionHandlingOptions>(options =>
+        //Configure<AbpExceptionHandlingOptions>(options =>
+        //{
+        //    options.SendExceptionsDetailsToClients = true;
+        //    options.SendStackTraceToClients = false;
+        //});
+
+        Configure<AbpExceptionHttpStatusCodeOptions>(options =>
         {
-            options.SendExceptionsDetailsToClients = true;
-            options.SendStackTraceToClients = false;
+            // Put status code mapping in here
+
         });
     }
 
