@@ -79,6 +79,17 @@ public class BookStoreEntityFrameworkCoreTestModule : AbpModule
             context.GetService<IRelationalDatabaseCreator>().CreateTables();
         }
 
+
+        var optionsForSecondDb = new DbContextOptionsBuilder<BookStore2DbContext>()
+        .UseSqlite(connection)
+        .Options;
+
+        using (var context = new BookStore2DbContext(optionsForSecondDb))
+        {
+            context.GetService<IRelationalDatabaseCreator>().CreateTables();
+        }
+
+
         return connection;
     }
 }

@@ -15,6 +15,7 @@ using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using System.Data;
 using Volo.Abp.Localization.ExceptionHandling;
 using MyDemo.BookStore.Localization;
+using Volo.Abp.Data;
 
 namespace MyDemo.BookStore.EntityFrameworkCore;
 
@@ -45,18 +46,20 @@ public class BookStoreEntityFrameworkCoreModule : AbpModule
                  * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
         });
+        
+        context.Services.AddAbpDbContext<BookStore2DbContext>(options =>
+        {
+                /* Remove "includeAllEntities: true" to create
+                 * default repositories only for aggregate roots */
+            options.AddDefaultRepositories(includeAllEntities: true);
+        });
+
 
         Configure<AbpDbContextOptions>(options =>
         {
                 /* The main point to change your DBMS.
                  * See also BookStoreMigrationsDbContextFactory for EF Core tooling. */
             options.UseSqlServer();
-        });
-
-        // Localization Exception Message
-        Configure<AbpExceptionLocalizationOptions>(options =>
-        {
-            options.MapCodeNamespace("BookStore", typeof(BookStoreResource));
         });
     }
 }

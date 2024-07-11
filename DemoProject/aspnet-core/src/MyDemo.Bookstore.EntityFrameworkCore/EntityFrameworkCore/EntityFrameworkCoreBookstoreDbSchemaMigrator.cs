@@ -30,5 +30,10 @@ public class EntityFrameworkCoreBookStoreDbSchemaMigrator
             .GetRequiredService<BookStoreDbContext>()
             .Database
             .MigrateAsync();
+
+        await _serviceProvider
+            .GetRequiredService<BookStore2DbContext>()
+            .Database
+            .MigrateAsync();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using MyDemo.BookStore.Permissions;
+using MyDemo.BookStore.Procedure;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,14 +13,17 @@ namespace MyDemo.BookStore.Authors;
 public class AuthorAppService : BookStoreAppService, IAuthorAppService
 {
     private readonly IAuthorRepository _authorRepository;
+    private readonly IProcedureRepository _procedureRepository;
     private readonly AuthorManager _authorManager;
 
     public AuthorAppService(
         IAuthorRepository authorRepository,
-        AuthorManager authorManager)
+        AuthorManager authorManager,
+        IProcedureRepository procedureRepository)
     {
         _authorRepository = authorRepository;
         _authorManager = authorManager;
+        _procedureRepository = procedureRepository;
     }
 
     public async Task<AuthorDto> GetByNameAsync(string name)
@@ -31,7 +35,8 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
 
     public async Task TestStoredProcedureAsync(int value)
     {
-        await _authorRepository.TestStoredProcedure(value);
+    //    await _authorRepository.TestStoredProcedure(value);
+        await _procedureRepository.RunProcedure();
     }
 
     public async Task<AuthorDto> GetAsync(Guid id)
