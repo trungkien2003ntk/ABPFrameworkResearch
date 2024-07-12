@@ -1312,6 +1312,14 @@
               "name": "IBooksAppService",
               "methods": [
                 {
+                  "name": "GetAuthorLookupAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Application.Dtos.ListResultDto<MyDemo.BookStore.Books.AuthorLookupDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.ListResultDto<MyDemo.BookStore.Books.AuthorLookupDto>"
+                  }
+                },
+                {
                   "name": "GetAsync",
                   "parametersOnMethod": [
                     {
@@ -1408,6 +1416,119 @@
             }
           ],
           "actions": {
+            "GetAsyncById": {
+              "uniqueName": "GetAsyncById",
+              "name": "GetAsync",
+              "httpMethod": "GET",
+              "url": "api/app/books/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "MyDemo.BookStore.Books.BookDto",
+                "typeSimple": "MyDemo.BookStore.Books.BookDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MyDemo.BookStore.Books.BookDto,MyDemo.BookStore.Books.BookDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
+            },
+            "GetListAsyncByInput": {
+              "uniqueName": "GetListAsyncByInput",
+              "name": "GetListAsync",
+              "httpMethod": "GET",
+              "url": "api/app/books",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto, Volo.Abp.Ddd.Application.Contracts",
+                  "type": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
+                  "typeSimple": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "Sorting",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SkipCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "MaxResultCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MyDemo.BookStore.Books.BookDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MyDemo.BookStore.Books.BookDto>"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MyDemo.BookStore.Books.BookDto,MyDemo.BookStore.Books.BookDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
+            },
+            "GetAuthorLookupAsync": {
+              "uniqueName": "GetAuthorLookupAsync",
+              "name": "GetAuthorLookupAsync",
+              "httpMethod": "GET",
+              "url": "api/app/books/author-lookup",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Application.Dtos.ListResultDto<MyDemo.BookStore.Books.AuthorLookupDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.ListResultDto<MyDemo.BookStore.Books.AuthorLookupDto>"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "MyDemo.BookStore.Books.IBooksAppService"
+            },
             "CreateAsyncByInput": {
               "uniqueName": "CreateAsyncByInput",
               "name": "CreateAsync",
@@ -1538,104 +1659,6 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.IDeleteAppService<System.Guid>"
-            },
-            "GetAsyncById": {
-              "uniqueName": "GetAsyncById",
-              "name": "GetAsync",
-              "httpMethod": "GET",
-              "url": "api/app/books/{id}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "MyDemo.BookStore.Books.BookDto",
-                "typeSimple": "MyDemo.BookStore.Books.BookDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MyDemo.BookStore.Books.BookDto,MyDemo.BookStore.Books.BookDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
-            },
-            "GetListAsyncByInput": {
-              "uniqueName": "GetListAsyncByInput",
-              "name": "GetListAsync",
-              "httpMethod": "GET",
-              "url": "api/app/books",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto, Volo.Abp.Ddd.Application.Contracts",
-                  "type": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
-                  "typeSimple": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "Sorting",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "SkipCount",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "MaxResultCount",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                }
-              ],
-              "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MyDemo.BookStore.Books.BookDto>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MyDemo.BookStore.Books.BookDto>"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MyDemo.BookStore.Books.BookDto,MyDemo.BookStore.Books.BookDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
             }
           }
         }
@@ -4404,6 +4427,27 @@
         }
       ]
     },
+    "MyDemo.BookStore.Books.AuthorLookupDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "MyDemo.BookStore.Books.BookDto": {
       "baseType": "Volo.Abp.Application.Dtos.AuditedEntityDto<System.Guid>",
       "isEnum": false,
@@ -4452,6 +4496,30 @@
           "jsonName": null,
           "type": "System.Single",
           "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AuthorId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AuthorName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -4537,6 +4605,18 @@
           "jsonName": null,
           "type": "System.Single",
           "typeSimple": "number",
+          "isRequired": true,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AuthorId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
           "isRequired": true,
           "minLength": null,
           "maxLength": null,

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -10,4 +11,6 @@ public interface IBooksAppService
         Guid, //Primary key of the book entity
         PagedAndSortedResultRequestDto, //Used for paging/sorting
         CreateUpdateBookDto> //Used to create/update a book
-{ }
+{
+    Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync();
+}
