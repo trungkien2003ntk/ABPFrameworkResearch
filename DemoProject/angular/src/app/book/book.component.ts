@@ -1,6 +1,6 @@
 import { ListService, PagedResultDto } from '@abp/ng.core';
 import { Component, OnInit } from '@angular/core';
-import { BooksService, BookDto, bookTypeOptions } from '@proxy/books';
+import { BooksService, BookDto, bookTypeOptions } from '@proxy/my-demo/book-store/books';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbDateNativeAdapter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';

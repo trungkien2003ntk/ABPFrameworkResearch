@@ -9,7 +9,7 @@ public class Author : FullAuditedAggregateRoot<Guid>
 {
     public string Name { get; private set; }
     public DateTime BirthDate { get; set; }
-    public string ShortBio { get; set; }
+    public string? ShortBio { get; set; }
 
     private Author()
     {

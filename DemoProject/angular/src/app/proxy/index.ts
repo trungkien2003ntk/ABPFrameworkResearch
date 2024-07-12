@@ -1,2 +1,2 @@
-import * as Books from './books';
-export { Books };
+import * as MyDemo from './my-demo';
+export { MyDemo };

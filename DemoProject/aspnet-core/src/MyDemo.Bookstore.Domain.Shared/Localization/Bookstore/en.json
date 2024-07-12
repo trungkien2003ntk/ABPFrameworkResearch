@@ -20,6 +20,11 @@
     "Menu:Home": "Home",
     "Menu:BookStore": "Book Store",
     "Menu:Books": "Books",
+    "Menu:Authors": "Authors",
+    "Authors": "Authors",
+    "AuthorDeletionConfirmationMessage": "Are you sure to delete the author '{0}'?",
+    "BirthDate": "Birth date",
+    "NewAuthor": "New author",
 
     "Actions": "Actions",
     "Close": "Close",

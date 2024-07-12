@@ -12,9 +12,9 @@ export const environment = {
   oAuthConfig: {
     issuer: 'https://localhost:44325/',
     redirectUri: baseUrl,
-    clientId: 'Bookstore_App',
+    clientId: 'BookStore_App',
     responseType: 'code',
-    scope: 'offline_access Bookstore',
+    scope: 'offline_access BookStore',
     requireHttps: true,
   },
   apis: {

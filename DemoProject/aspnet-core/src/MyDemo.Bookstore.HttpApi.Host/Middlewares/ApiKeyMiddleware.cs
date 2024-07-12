@@ -21,7 +21,7 @@ public class ApiKeyMiddleware
     public async Task InvokeAsync(HttpContext context, BookStoreDbContext dbContext)
     {
         var path = context.Request.Path;
-        if (path.StartsWithSegments("/swagger") || path.StartsWithSegments("/api-docs"))
+        if (path.StartsWithSegments("/swagger") || path.StartsWithSegments("/api-docs") || path.StartsWithSegments("/api/abp/api-definition"))
         {
             await _next(context);
             return;

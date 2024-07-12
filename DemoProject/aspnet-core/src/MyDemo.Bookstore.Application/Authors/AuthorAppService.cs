@@ -26,7 +26,7 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
         _procedureRepository = procedureRepository;
     }
 
-    [Authorize]
+    
     public async Task<AuthorDto> GetByNameAsync(string name)
     {
         var author = await _authorRepository.FindByNameAsync(name);
@@ -71,7 +71,7 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
         );
     }
 
-    [Authorize(Policy = BookStorePermissions.Authors.Create)]
+    //[Authorize(Policy = BookStorePermissions.Authors.Create)]
     public async Task<AuthorDto> CreateAsync(CreateAuthorDto input)
     {
         var newAuthor = await _authorManager.CreateAsync(
@@ -85,7 +85,7 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
         return ObjectMapper.Map<Author, AuthorDto>(newAuthor);
     }
 
-    [Authorize(Policy = BookStorePermissions.Authors.Edit)]
+    //[Authorize(Policy = BookStorePermissions.Authors.Edit)]
     public async Task UpdateAsync(Guid id, UpdateAuthorDto input)
     {
         var newName = input.Name;
@@ -102,7 +102,7 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
         await _authorRepository.UpdateAsync(existingAuthor);
     }
 
-    [Authorize(Policy = BookStorePermissions.Authors.Delete)]
+    //[Authorize(Policy = BookStorePermissions.Authors.Delete)]
     public async Task DeleteAsync(Guid id)
     {
         await _authorRepository.DeleteAsync(id);

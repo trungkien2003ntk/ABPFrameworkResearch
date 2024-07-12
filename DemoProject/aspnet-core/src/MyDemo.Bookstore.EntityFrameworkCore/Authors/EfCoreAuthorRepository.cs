@@ -33,6 +33,7 @@ public class EfCoreAuthorRepository : EfCoreRepository<BookStoreDbContext, Autho
         var author = await dbConnection.QueryFirstOrDefaultAsync<Author>(
             "spGetAuthorByName",
             parameters,
+            transaction: await GetDbTransactionAsync(),
             commandType: CommandType.StoredProcedure
         );
 
