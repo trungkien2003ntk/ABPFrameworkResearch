@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using MyDemo.BookStore.Books;
 using MyDemo.BookStore.Permissions;
 using MyDemo.BookStore.Procedure;
 using System;
@@ -13,20 +14,22 @@ namespace MyDemo.BookStore.Authors;
 public class AuthorAppService : BookStoreAppService, IAuthorAppService
 {
     private readonly IAuthorRepository _authorRepository;
+    private readonly IRepository<Book, Guid> _bookRepository;
     private readonly IProcedureRepository _procedureRepository;
     private readonly AuthorManager _authorManager;
 
     public AuthorAppService(
         IAuthorRepository authorRepository,
         AuthorManager authorManager,
-        IProcedureRepository procedureRepository)
+        IProcedureRepository procedureRepository,
+        IRepository<Book, Guid> bookRepository)
     {
         _authorRepository = authorRepository;
         _authorManager = authorManager;
         _procedureRepository = procedureRepository;
+        _bookRepository = bookRepository;
     }
 
-    
     public async Task<AuthorDto> GetByNameAsync(string name)
     {
         var author = await _authorRepository.FindByNameAsync(name);
@@ -43,7 +46,13 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
     public async Task<AuthorDto> GetAsync(Guid id)
     {
         var author = await _authorRepository.GetAsync(id);
-        return ObjectMapper.Map<Author, AuthorDto>(author);
+
+        var authorDto = ObjectMapper.Map<Author, AuthorDto>(author);
+
+        var thisAuthorBooks = await _bookRepository.GetListAsync(b => b.AuthorId ==  author.Id);
+
+        authorDto.Books = ObjectMapper.Map<List<Book>, List<BookDto>>(thisAuthorBooks);
+        return authorDto;
     }
 
     public async Task<PagedResultDto<AuthorDto>> GetListAsync(GetAuthorListDto input)
