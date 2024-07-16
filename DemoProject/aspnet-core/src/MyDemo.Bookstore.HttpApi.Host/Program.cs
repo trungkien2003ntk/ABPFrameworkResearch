@@ -34,6 +34,7 @@ public class Program
                 .UseSerilog();
             await builder.AddApplicationAsync<BookStoreHttpApiHostModule>();
             var app = builder.Build();
+            app.UseDeveloperExceptionPage();
             await app.InitializeApplicationAsync();
             await app.RunAsync();
             return 0;
