@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 })
 export class AuthorService {
   apiName = 'Default';
-
+  
 
   create = (input: CreateAuthorDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, AuthorDto>({
@@ -16,24 +16,24 @@ export class AuthorService {
       url: '/api/app/author',
       body: input,
     },
-      { apiName: this.apiName, ...config });
-
+    { apiName: this.apiName,...config });
+  
 
   delete = (id: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
       method: 'DELETE',
       url: `/api/app/author/${id}`,
     },
-      { apiName: this.apiName, ...config });
-
+    { apiName: this.apiName,...config });
+  
 
   get = (id: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, AuthorDto>({
       method: 'GET',
       url: `/api/app/author/${id}`,
     },
-      { apiName: this.apiName, ...config });
-
+    { apiName: this.apiName,...config });
+  
 
   getByName = (name: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, AuthorDto>({
@@ -41,8 +41,8 @@ export class AuthorService {
       url: '/api/app/author/by-name',
       params: { name },
     },
-      { apiName: this.apiName, ...config });
-
+    { apiName: this.apiName,...config });
+  
 
   getList = (input: GetAuthorListDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, PagedResultDto<AuthorDto>>({
@@ -50,8 +50,8 @@ export class AuthorService {
       url: '/api/app/author',
       params: { filter: input.filter, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
-      { apiName: this.apiName, ...config });
-
+    { apiName: this.apiName,...config });
+  
 
   testStoredProcedure = (value: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
@@ -59,16 +59,16 @@ export class AuthorService {
       url: '/api/app/author/test-stored-procedure',
       params: { value },
     },
-      { apiName: this.apiName, ...config });
-
+    { apiName: this.apiName,...config });
+  
 
   update = (id: string, input: UpdateAuthorDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
       method: 'PUT',
       url: `/api/app/author/${id}`,
-      body: input
+      body: input,
     },
-      { apiName: this.apiName, ...config });
+    { apiName: this.apiName,...config });
 
-  constructor(private restService: RestService) { }
+  constructor(private restService: RestService) {}
 }

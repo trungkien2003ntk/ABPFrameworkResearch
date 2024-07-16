@@ -907,7 +907,7 @@
                   "parametersOnMethod": [
                     {
                       "name": "input",
-                      "typeAsString": "MyDemo.BookStore.Authors.GetAuthorListDto, MyDemo.Bookstore.Application.Contracts",
+                      "typeAsString": "MyDemo.BookStore.Authors.GetAuthorListDto, MyDemo.BookStore.Application.Contracts",
                       "type": "MyDemo.BookStore.Authors.GetAuthorListDto",
                       "typeSimple": "MyDemo.BookStore.Authors.GetAuthorListDto",
                       "isOptional": false,
@@ -924,7 +924,7 @@
                   "parametersOnMethod": [
                     {
                       "name": "input",
-                      "typeAsString": "MyDemo.BookStore.Authors.CreateAuthorDto, MyDemo.Bookstore.Application.Contracts",
+                      "typeAsString": "MyDemo.BookStore.Authors.CreateAuthorDto, MyDemo.BookStore.Application.Contracts",
                       "type": "MyDemo.BookStore.Authors.CreateAuthorDto",
                       "typeSimple": "MyDemo.BookStore.Authors.CreateAuthorDto",
                       "isOptional": false,
@@ -949,7 +949,7 @@
                     },
                     {
                       "name": "input",
-                      "typeAsString": "MyDemo.BookStore.Authors.UpdateAuthorDto, MyDemo.Bookstore.Application.Contracts",
+                      "typeAsString": "MyDemo.BookStore.Authors.UpdateAuthorDto, MyDemo.BookStore.Application.Contracts",
                       "type": "MyDemo.BookStore.Authors.UpdateAuthorDto",
                       "typeSimple": "MyDemo.BookStore.Authors.UpdateAuthorDto",
                       "isOptional": false,
@@ -1102,7 +1102,7 @@
               "parametersOnMethod": [
                 {
                   "name": "input",
-                  "typeAsString": "MyDemo.BookStore.Authors.GetAuthorListDto, MyDemo.Bookstore.Application.Contracts",
+                  "typeAsString": "MyDemo.BookStore.Authors.GetAuthorListDto, MyDemo.BookStore.Application.Contracts",
                   "type": "MyDemo.BookStore.Authors.GetAuthorListDto",
                   "typeSimple": "MyDemo.BookStore.Authors.GetAuthorListDto",
                   "isOptional": false,
@@ -1175,7 +1175,7 @@
               "parametersOnMethod": [
                 {
                   "name": "input",
-                  "typeAsString": "MyDemo.BookStore.Authors.CreateAuthorDto, MyDemo.Bookstore.Application.Contracts",
+                  "typeAsString": "MyDemo.BookStore.Authors.CreateAuthorDto, MyDemo.BookStore.Application.Contracts",
                   "type": "MyDemo.BookStore.Authors.CreateAuthorDto",
                   "typeSimple": "MyDemo.BookStore.Authors.CreateAuthorDto",
                   "isOptional": false,
@@ -1220,7 +1220,7 @@
                 },
                 {
                   "name": "input",
-                  "typeAsString": "MyDemo.BookStore.Authors.UpdateAuthorDto, MyDemo.Bookstore.Application.Contracts",
+                  "typeAsString": "MyDemo.BookStore.Authors.UpdateAuthorDto, MyDemo.BookStore.Application.Contracts",
                   "type": "MyDemo.BookStore.Authors.UpdateAuthorDto",
                   "typeSimple": "MyDemo.BookStore.Authors.UpdateAuthorDto",
                   "isOptional": false,
@@ -1358,7 +1358,7 @@
                   "parametersOnMethod": [
                     {
                       "name": "input",
-                      "typeAsString": "MyDemo.BookStore.Books.CreateUpdateBookDto, MyDemo.Bookstore.Application.Contracts",
+                      "typeAsString": "MyDemo.BookStore.Books.CreateUpdateBookDto, MyDemo.BookStore.Application.Contracts",
                       "type": "MyDemo.BookStore.Books.CreateUpdateBookDto",
                       "typeSimple": "MyDemo.BookStore.Books.CreateUpdateBookDto",
                       "isOptional": false,
@@ -1383,7 +1383,7 @@
                     },
                     {
                       "name": "input",
-                      "typeAsString": "MyDemo.BookStore.Books.CreateUpdateBookDto, MyDemo.Bookstore.Application.Contracts",
+                      "typeAsString": "MyDemo.BookStore.Books.CreateUpdateBookDto, MyDemo.BookStore.Application.Contracts",
                       "type": "MyDemo.BookStore.Books.CreateUpdateBookDto",
                       "typeSimple": "MyDemo.BookStore.Books.CreateUpdateBookDto",
                       "isOptional": false,
@@ -1529,6 +1529,21 @@
               "allowAnonymous": null,
               "implementFrom": "MyDemo.BookStore.Books.IBooksAppService"
             },
+            "GetBooksToExcelAsync": {
+              "uniqueName": "GetBooksToExcelAsync",
+              "name": "GetBooksToExcelAsync",
+              "httpMethod": "GET",
+              "url": "api/app/books/books-to-excel",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "MyDemo.BookStore.Files.FileDto",
+                "typeSimple": "MyDemo.BookStore.Files.FileDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "MyDemo.BookStore.Books.BooksAppService"
+            },
             "CreateAsyncByInput": {
               "uniqueName": "CreateAsyncByInput",
               "name": "CreateAsync",
@@ -1538,7 +1553,7 @@
               "parametersOnMethod": [
                 {
                   "name": "input",
-                  "typeAsString": "MyDemo.BookStore.Books.CreateUpdateBookDto, MyDemo.Bookstore.Application.Contracts",
+                  "typeAsString": "MyDemo.BookStore.Books.CreateUpdateBookDto, MyDemo.BookStore.Application.Contracts",
                   "type": "MyDemo.BookStore.Books.CreateUpdateBookDto",
                   "typeSimple": "MyDemo.BookStore.Books.CreateUpdateBookDto",
                   "isOptional": false,
@@ -1583,7 +1598,7 @@
                 },
                 {
                   "name": "input",
-                  "typeAsString": "MyDemo.BookStore.Books.CreateUpdateBookDto, MyDemo.Bookstore.Application.Contracts",
+                  "typeAsString": "MyDemo.BookStore.Books.CreateUpdateBookDto, MyDemo.BookStore.Application.Contracts",
                   "type": "MyDemo.BookStore.Books.CreateUpdateBookDto",
                   "typeSimple": "MyDemo.BookStore.Books.CreateUpdateBookDto",
                   "isOptional": false,
@@ -4313,6 +4328,18 @@
           "minimum": null,
           "maximum": null,
           "regex": null
+        },
+        {
+          "name": "Books",
+          "jsonName": null,
+          "type": "[MyDemo.BookStore.Books.BookDto]",
+          "typeSimple": "[MyDemo.BookStore.Books.BookDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
         }
       ]
     },
@@ -4428,7 +4455,7 @@
       ]
     },
     "MyDemo.BookStore.Books.AuthorLookupDto": {
-      "baseType": null,
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
       "isEnum": false,
       "enumNames": null,
       "enumValues": null,
@@ -4618,6 +4645,39 @@
           "type": "System.Guid",
           "typeSimple": "string",
           "isRequired": true,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "MyDemo.BookStore.Files.FileDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "FileBytes",
+          "jsonName": null,
+          "type": "[System.Byte]",
+          "typeSimple": "[number]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "DownloadName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
           "minLength": null,
           "maxLength": null,
           "minimum": null,

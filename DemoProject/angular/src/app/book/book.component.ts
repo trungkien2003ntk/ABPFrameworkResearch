@@ -6,6 +6,8 @@ import { NgbDateNativeAdapter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap
 import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FileDto } from '@proxy/my-demo/book-store/files';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-book',
@@ -98,6 +100,21 @@ export class BookComponent implements OnInit {
       if (status === Confirmation.Status.confirm) {
         this.booksService.delete(id).subscribe(() => this.list.get());
       }
+    });
+  }
+
+  exportToExcel() {
+    this.booksService.getBooksToExcel().subscribe((response: FileDto) => {
+      const byteCharacters = atob(response.fileBytes);
+      const byteNumbers = new Uint8Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+
+      const blob = new Blob([byteNumbers], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+      FileSaver.saveAs(blob, response.downloadName);
     });
   }
 }

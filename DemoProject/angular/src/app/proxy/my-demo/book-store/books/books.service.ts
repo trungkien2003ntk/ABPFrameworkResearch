@@ -2,6 +2,7 @@ import type { AuthorLookupDto, BookDto, CreateUpdateBookDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import type { ListResultDto, PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
+import type { FileDto } from '../files/models';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +40,14 @@ export class BooksService {
     this.restService.request<any, ListResultDto<AuthorLookupDto>>({
       method: 'GET',
       url: '/api/app/books/author-lookup',
+    },
+      { apiName: this.apiName, ...config });
+
+
+  getBooksToExcel = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, FileDto>({
+      method: 'GET',
+      url: '/api/app/books/books-to-excel',
     },
       { apiName: this.apiName, ...config });
 

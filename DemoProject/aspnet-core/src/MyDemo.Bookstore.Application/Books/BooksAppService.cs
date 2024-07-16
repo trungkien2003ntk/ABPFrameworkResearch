@@ -1,7 +1,12 @@
-﻿using MyDemo.BookStore.Authors;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml;
+using MyDemo.BookStore.Authors;
+using MyDemo.BookStore.Files;
 using MyDemo.BookStore.Permissions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
@@ -10,6 +15,8 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.ObjectMapping;
+using Author = MyDemo.BookStore.Authors.Author;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace MyDemo.BookStore.Books;
 
@@ -27,11 +34,6 @@ public class BooksAppService :
         : base(repository)
     {
         _authorRepository = authorRepository;
-        //GetPolicyName = BookStorePermissions.Books.Default;
-        //GetListPolicyName = BookStorePermissions.Books.Default;
-        //CreatePolicyName = BookStorePermissions.Books.Create;
-        //UpdatePolicyName = BookStorePermissions.Books.Edit;
-        //DeletePolicyName = BookStorePermissions.Books.Delete;
     }
 
     public override async Task<BookDto> GetAsync(Guid id)
@@ -100,6 +102,101 @@ public class BooksAppService :
         return new ListResultDto<AuthorLookupDto>(
             ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
         );
+    }
+
+    public async Task<FileDto> GetBooksToExcelAsync()
+    {
+        var books = await Repository.GetListAsync();
+        var memoryStream = new MemoryStream();
+
+        using (var spreadsheetDocument = SpreadsheetDocument.Create(memoryStream, SpreadsheetDocumentType.Workbook))
+        {
+            var workbookPart = spreadsheetDocument.AddWorkbookPart();
+            workbookPart.Workbook = new Workbook
+            {
+                Sheets = new Sheets()
+            };
+
+            uint sheetID = 1;
+
+            var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+            worksheetPart.Worksheet = new Worksheet(new SheetData());
+
+            Sheets sheets = workbookPart.Workbook.GetFirstChild<Sheets>();
+            string relationshipId = workbookPart.GetIdOfPart(worksheetPart);
+
+            if (sheets.Elements<Sheet>().Count() > 0)
+            {
+                sheetID = sheets.Elements<Sheet>().Select(s => s.SheetId.Value).Max() + 1;
+            }
+
+            Sheet sheet = new Sheet() { Id = relationshipId, SheetId = sheetID, Name = "Books" };
+            sheets.Append(sheet);
+
+            var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
+            var headerRow = new Row();
+
+            headerRow.Append(
+                CreateCell("Id", CellValues.String),
+                CreateCell("Book Name", CellValues.String),
+                CreateCell("Author Name", CellValues.String),
+                CreateCell("Type", CellValues.String),
+                CreateCell("Publish Date", CellValues.String),
+                CreateCell("Price", CellValues.String));
+
+            sheetData.AppendChild(headerRow);
+
+            foreach (var book in books)
+            {
+                var author = await _authorRepository.GetAsync(book.AuthorId);
+                var dataRow = new Row();
+                dataRow.Append(
+                    CreateCell(book.Id.ToString(), CellValues.String),
+                    CreateCell(book.Name, CellValues.String),
+                    CreateCell(author.Name, CellValues.String),
+                    CreateCell(book.Type.ToString(), CellValues.String),
+                    CreateCell(book.PublishDate, CellValues.Date),
+                    CreateCell(book.Price, CellValues.Number));
+                sheetData.AppendChild(dataRow);
+            }
+
+            workbookPart.Workbook.Save();
+        }
+        
+        memoryStream.Seek(0, SeekOrigin.Begin);
+
+        return new FileDto("Books.xlsx", Convert.ToBase64String(memoryStream.ToArray()));
+    }
+
+    private Cell CreateCell(object value, CellValues dataType)
+    {
+        var cell = new Cell()
+        {
+            DataType = dataType
+        };
+
+        if (dataType == CellValues.Boolean)
+        {
+            cell.DataType = CellValues.Boolean;
+            cell.CellValue = new CellValue((bool)value ? "1" : "0");
+        }
+        else if (dataType == CellValues.Date)
+        {
+            cell.DataType = CellValues.Date;
+            cell.CellValue = new CellValue(((DateTime)value));
+        }
+        else if (dataType == CellValues.Number)
+        {
+            cell.DataType = CellValues.Number;
+            cell.CellValue = new CellValue(Convert.ToDouble(value));
+        }
+        else
+        {
+            cell.DataType = CellValues.String;
+            cell.CellValue = new CellValue(value.ToString());
+        }
+
+        return cell;
     }
 
     private static string NormalizeSorting(string? sorting)
