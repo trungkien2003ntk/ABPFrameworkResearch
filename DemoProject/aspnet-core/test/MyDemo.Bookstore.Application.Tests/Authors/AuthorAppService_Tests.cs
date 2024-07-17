@@ -10,11 +10,11 @@ namespace MyDemo.BookStore.Authors;
 public abstract class AuthorAppService_Tests<TStartupModule> : BookStoreApplicationTestBase<TStartupModule>
     where TStartupModule : IAbpModule
 {
-    private readonly IAuthorAppService _authorAppService;
+    private readonly IAuthorsAppService _authorAppService;
 
     protected AuthorAppService_Tests()
     {
-        _authorAppService = GetRequiredService<IAuthorAppService>();
+        _authorAppService = GetRequiredService<IAuthorsAppService>();
     }
 
     [Fact]

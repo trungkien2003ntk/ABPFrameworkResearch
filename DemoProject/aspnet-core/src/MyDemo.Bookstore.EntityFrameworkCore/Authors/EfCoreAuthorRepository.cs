@@ -17,6 +17,7 @@ public class EfCoreAuthorRepository : EfCoreRepository<BookStoreDbContext, Autho
 {
     public EfCoreAuthorRepository(IDbContextProvider<BookStoreDbContext> dbContextProvider) : base(dbContextProvider)
     {
+        
     }
 
     public async Task<Author> FindByNameAsync(string name)

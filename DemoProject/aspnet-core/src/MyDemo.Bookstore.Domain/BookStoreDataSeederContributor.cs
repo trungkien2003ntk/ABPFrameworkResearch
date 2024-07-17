@@ -14,16 +14,19 @@ public class BookStoreDataSeederContributor
     private readonly IRepository<Book, Guid> _bookRepository;
     private readonly IAuthorRepository _authorRepository;
     private readonly AuthorManager _authorManager;
+    private readonly BookManager _bookManager;
 
     public BookStoreDataSeederContributor(
         IRepository<Book, Guid> bookRepository,
         IAuthorRepository authorRepository,
-        AuthorManager authorManager
+        AuthorManager authorManager,
+        BookManager bookManager
     )
     {
         _bookRepository = bookRepository;
         _authorRepository = authorRepository;
         _authorManager = authorManager;
+        _bookManager = bookManager;
     }
 
     public async Task SeedAsync(DataSeedContext context)
@@ -50,26 +53,24 @@ public class BookStoreDataSeederContributor
         );
 
         await _bookRepository.InsertAsync(
-            new Book
-            {
-                AuthorId = orwell.Id, // SET THE AUTHOR
-                Name = "1984",
-                Type = BookType.Dystopia,
-                PublishDate = new DateTime(1949, 6, 8, 0, 0, 0, DateTimeKind.Utc),
-                Price = 19.84f
-            },
+            await _bookManager.CreateAsync(
+                "1984",
+                BookType.Dystopia,
+                new DateTime(1949, 6, 8, 0, 0, 0, DateTimeKind.Utc),
+                19.84f,
+                orwell.Id
+            ),
             autoSave: true
         );
 
         await _bookRepository.InsertAsync(
-            new Book
-            {
-                AuthorId = douglas.Id, // SET THE AUTHOR
-                Name = "The Hitchhiker's Guide to the Galaxy",
-                Type = BookType.ScienceFiction,
-                PublishDate = new DateTime(1995, 9, 27, 0, 0, 0, DateTimeKind.Utc),
-                Price = 42.0f
-            },
+            await _bookManager.CreateAsync(
+                "The Hitchhiker's Guide to the Galaxy",
+                BookType.ScienceFiction,
+                new DateTime(1995, 9, 27, 0, 0, 0, DateTimeKind.Utc),
+                42.0f,
+                douglas.Id
+            ),
             autoSave: true
         );
     }

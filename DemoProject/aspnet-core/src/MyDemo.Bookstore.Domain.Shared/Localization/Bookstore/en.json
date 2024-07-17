@@ -2,7 +2,10 @@
   "Culture": "en",
   "Texts": {
     // 10xxx: Business Rule Violation
+    "BookStore.Error:100001": "An author with the id '{id}' does not exist.",
+    "BookStore.Error:100002": "An author with the name '{name}' does not exist.",
     "BookStore.Error:100101": "An author with the name '{name}' already exists.",
+    "BookStore.Error:100102": "A book with the name '{name}' already exists.",
 
     // 20xxx: Database or persistence-related errors
     "BookStore.Error:200001": "An error occurred when executing the stored procedure. (Details: '{detail}')",
@@ -10,6 +13,10 @@
     // 30xxx: Authentication and authorization issues
 
     // 40xxx: Client-side errors (invalid input, resource not found)
+    "BookStore.Error:400001": "Invalid book type '{bookType}'",
+    "BookStore.Error:400002": "Invalid published date '{publishedDate}'",
+    "BookStore.Error:400003": "Invalid price '{price}'",
+    "BookStore.Error:400004": "Invalid value. (Details: '{detail}')",
 
     // 90xxx: System-level or unexpected errors
 

@@ -11,14 +11,14 @@ using Volo.Abp.Domain.Repositories;
 
 namespace MyDemo.BookStore.Authors;
 
-public class AuthorAppService : BookStoreAppService, IAuthorAppService
+public class AuthorsAppService : BookStoreAppService, IAuthorsAppService
 {
     private readonly IAuthorRepository _authorRepository;
     private readonly IRepository<Book, Guid> _bookRepository;
     private readonly IProcedureRepository _procedureRepository;
     private readonly AuthorManager _authorManager;
 
-    public AuthorAppService(
+    public AuthorsAppService(
         IAuthorRepository authorRepository,
         AuthorManager authorManager,
         IProcedureRepository procedureRepository,

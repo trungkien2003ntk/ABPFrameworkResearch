@@ -5,7 +5,7 @@ using Volo.Abp.Application.Services;
 
 namespace MyDemo.BookStore.Authors;
 
-public interface IAuthorAppService : IApplicationService
+public interface IAuthorsAppService : IApplicationService
 {
     Task<AuthorDto> GetAsync(Guid id);
 
