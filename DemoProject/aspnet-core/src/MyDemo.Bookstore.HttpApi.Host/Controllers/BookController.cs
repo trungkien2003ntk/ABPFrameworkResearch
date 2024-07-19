@@ -34,20 +34,14 @@ public class BooksController : ControllerBase
         return NoContent();
     }
 
-    //[HttpGet("export-to-excel")]
-    //public async Task<IActionResult> ExportExcel()
-    //{
-    //    var memoryStream = new MemoryStream();
+    [HttpGet("export-to-excel")]
+    public async Task<IActionResult> ExportExcel()
+    {
+        var memoryStream = await _booksAppService.GetBooksToExcelAsync();
 
-    //    // Generate Excel file directly into the memory stream
-    //    await _booksAppService.GetBooksToExcelAsync(memoryStream);
-
-    //    // Reset the stream's position to the beginning
-        //    memoryStream.Position = 0;
-
-        //    // Return the file directly as a FileStreamResult
-    //    return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Books.xlsx");
-    //}
+        // Return the file directly as a FileStreamResult
+        return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Books.xlsx");
+    }
 }
 
 public class FormModel

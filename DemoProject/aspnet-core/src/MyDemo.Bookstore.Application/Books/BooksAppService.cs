@@ -32,19 +32,25 @@ public class BooksAppService :
     private readonly AuthorManager _authorManager;
     private readonly BookManager _bookManager;
     private readonly IExcelImporter _importer;
+    private readonly IExcelExporter _exporter;
+    private readonly List<IExcelColumnDefinition> _columnDefinitions = [];
+
 
     public BooksAppService(
         IRepository<Book, Guid> repository,
         IAuthorRepository authorRepository,
         AuthorManager authorManager,
         BookManager bookManager,
-        IExcelImporter importer
+        IExcelImporter importer,
+        IExcelExporter exporter
     ) : base(repository)
     {
         _authorRepository = authorRepository;
         _authorManager = authorManager;
         _bookManager = bookManager;
         _importer = importer;
+        _exporter = exporter;
+        InitializeColumnDefinition();
     }
 
     public override async Task<BookDto> GetAsync(Guid id)
@@ -116,42 +122,25 @@ public class BooksAppService :
     }
 
 
-    //[RemoteService(IsEnabled = false)]
-    //public async Task GetBooksToExcelAsync(MemoryStream memoryStream)
-    //{
-    //    var books = await Repository.GetListAsync();
-
-    //    using (var spreadsheetDocument = SpreadsheetDocument.Create(memoryStream, SpreadsheetDocumentType.Workbook))
-    //    {
-    //        var workbookPart = spreadsheetDocument.AddWorkbookPart();
-    //        workbookPart.Workbook = new Workbook { Sheets = new Sheets() };
-
-    //        var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
-    //        worksheetPart.Worksheet = new Worksheet(new SheetData());
-
-    //        var sheets = workbookPart.Workbook.GetFirstChild<Sheets>();
-    //        var sheetID = sheets.Elements<Sheet>().Any() ? sheets.Elements<Sheet>().Select(s => s.SheetId.Value).Max() + 1 : 1;
-    //        var relationshipId = workbookPart.GetIdOfPart(worksheetPart);
-
-    //        var sheet = new Sheet { Id = relationshipId, SheetId = sheetID, Name = "Books" };
-    //        sheets.Append(sheet);
-
-    //        var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
-    //        sheetData = AppendHeaderRow(sheetData);
-    //        sheetData = await AppendDataRows(books, sheetData);
-
-    //        workbookPart.Workbook.Save();
-    //    }
-    //}
-
+    [RemoteService(IsEnabled = false)]
+    public async Task<MemoryStream> GetBooksToExcelAsync()
+    {
+        var books = await Repository.GetListAsync();
+        return await _exporter.ExportToStreamAsync(books, _columnDefinitions, "Books");
+    }
 
     [RemoteService(IsEnabled = false)]
     public async Task ImportBooksFromExcelAsync(MemoryStream memoryStream)
     {
-        var columnDefinitions = new List<IExcelColumnDefinition>();
+        _importer.SetColumnDefinition(_columnDefinitions);
+        await _importer.ImportAsync<BookTemp, Guid>(memoryStream);
+    }
+
+    private void InitializeColumnDefinition()
+    {
         try
         {
-            columnDefinitions.AddRange([
+            _columnDefinitions.AddRange([
                 new ExcelColumnDefinition<string>("Name", false, value => value),
                 new ExcelColumnDefinition<BookType>("Type", false, Enum.Parse<BookType>),
                 new ExcelColumnDefinition<DateTime>("PublishDate", false, value => double.TryParse(value, out double parsedValue) ? DateTime.FromOADate(double.Parse(value)) : DateTime.ParseExact(value, "dd/MM/yyyy", null)),
@@ -163,87 +152,6 @@ public class BooksAppService :
         {
             throw new BusinessException(BookStoreDomainErrorCodes.InvalidValue).WithData("detail", ex.Message);
         }
-
-        _importer.SetColumnDefinition(columnDefinitions);
-        await _importer.ImportAsync<BookTemp, Guid>(memoryStream);
-
-        //using var spreadsheetDocument = SpreadsheetDocument.Open(memoryStream, false);
-        //var workbookPart = spreadsheetDocument.WorkbookPart;
-        //var worksheetPart = workbookPart.WorksheetParts.Last();
-
-        //var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
-        //var rows = sheetData.Descendants<Row>().Skip(1); // Skip header row
-
-        //var stringTablePart = workbookPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
-        //var stringTable = stringTablePart?.SharedStringTable;
-
-        //var columnMapping = new Dictionary<string, int>
-        //{
-        //    { "Name", 1 },
-        //    { "AuthorName", 2 },
-        //    { "BookType", 3 },
-        //    { "PublishedDate", 4 },
-        //    { "Price", 5 }
-        //    // Add more mappings as needed
-        //};
-
-        //var dataTable = new DataTable();
-        //foreach (var column in columnMapping.Keys) { 
-        //    dataTable.Columns.Add(column, typeof(string));
-        //}
-
-        //foreach (var row in rows)
-        //{
-        //    var cells = row.Elements<Cell>().ToArray();
-        //    var dataRow = dataTable.NewRow();
-
-        //    foreach (var kvp in columnMapping)
-        //    {
-        //        var propertyName = kvp.Key;
-        //        var columnIndex = kvp.Value;
-        //        var cellValue = GetCellValue(cells[columnIndex], stringTable);
-
-        //        dataRow[propertyName] = cellValue;
-        //    }
-
-        //    dataTable.Rows.Add(dataRow);
-        //}
-
-        //foreach (var row in rows)
-        //{ 
-        //    var cells = row.Elements<Cell>().ToArray();
-        //    var bookName = GetCellValue(cells[1], stringTable);
-        //    Check.NotNullOrEmpty(bookName, nameof(bookName));
-
-        //    var authorName = GetCellValue(cells[2], stringTable);
-        //    Check.NotNullOrEmpty(authorName, nameof(authorName));
-
-        //    var bookTypeStr = GetCellValue(cells[3], stringTable);
-        //    if (!Enum.TryParse(bookTypeStr, true, out BookType bookType))
-        //    {
-        //        throw new BusinessException(BookStoreDomainErrorCodes.InvalidBookType).WithData("bookType", bookTypeStr);
-        //    }
-
-        //    var publishDateStr = GetCellValue(cells[4], stringTable);
-        //    if (!double.TryParse(publishDateStr, out double oADate))
-        //    {
-        //        throw new BusinessException(BookStoreDomainErrorCodes.InvalidPublishedDate).WithData("publishedDate", publishDateStr);
-        //    }
-        //    DateTime parsedPublishedDate = DateTime.FromOADate(oADate);
-
-        //    var priceStr = GetCellValue(cells[5], stringTable);
-        //    if (!float.TryParse(priceStr, out float price))
-        //    {
-        //        throw new BusinessException(BookStoreDomainErrorCodes.InvalidPrice).WithData("price", priceStr);
-        //    }
-
-        //    var author = await _authorRepository.FirstOrDefaultAsync(a => a.Name == authorName) ??
-        //        throw new BusinessException(BookStoreDomainErrorCodes.AuthorNotExistWithName).WithData("name", authorName);
-
-
-        //    var book = await _bookManager.CreateAsync(bookName, bookType, parsedPublishedDate, price, author.Id);
-        //    await Repository.InsertAsync(book);
-        //}
     }
 
     private async Task<Author> CreateAuthorAsync(string authorName)
