@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
-using System.Transactions;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -133,7 +132,7 @@ public class BooksAppService :
     public async Task ImportBooksFromExcelAsync(MemoryStream memoryStream)
     {
         _importer.SetColumnDefinition(_columnDefinitions);
-        await _importer.ImportAsync<BookTemp, Guid>(memoryStream);
+        await _importer.ImportAsync<Book>(memoryStream);
     }
 
     private void InitializeColumnDefinition()

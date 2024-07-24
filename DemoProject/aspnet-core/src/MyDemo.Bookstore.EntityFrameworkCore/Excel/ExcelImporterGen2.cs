@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Data;
@@ -13,6 +12,8 @@ using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Guids;
+using Volo.Abp.Timing;
+using Volo.Abp.Users;
 
 namespace MyDemo.BookStore.Excel;
 
@@ -23,16 +24,22 @@ public class ExcelImporterGen2 : IExcelImporter, ITransientDependency
     private readonly IDbContextProvider<BookStoreDbContext> _dbContextProvider;
     private readonly IConnectionStringResolver _connectionStringResolver;
     private readonly IGuidGenerator _guidGenerator;
+    private readonly ICurrentUser _currentUser;
+    private readonly IClock _clock;
 
     public ExcelImporterGen2(
         IDbContextProvider<BookStoreDbContext> dbContextProvider,
         IConnectionStringResolver connectionStringResolver,
-        IGuidGenerator guidGenerator
+        IGuidGenerator guidGenerator,
+        ICurrentUser currentUser,
+        IClock clock
     )
     {
         _dbContextProvider = dbContextProvider;
         _connectionStringResolver = connectionStringResolver;
         _guidGenerator = guidGenerator;
+        _currentUser = currentUser;
+        _clock = clock;
     }
 
     public void SetColumnDefinition(List<IExcelColumnDefinition> columnDefinitions)
@@ -40,21 +47,37 @@ public class ExcelImporterGen2 : IExcelImporter, ITransientDependency
         _columnDefinitions = columnDefinitions;
     }
 
-    public async Task ImportAsync<TTempEntity, TKey>(MemoryStream memoryStream)
-        where TTempEntity : class, IEntity<TKey>
+    public async Task ImportAsync<TEntity>(MemoryStream memoryStream)
+        where TEntity : class, IEntity
     {
         var dataTable = await ExcelHelper.ReadToDataTable(memoryStream, _columnDefinitions);
-        PopulateId(dataTable);
+        PopulateCommonProperties(dataTable);
         await BulkInsertDataTableAsync(dataTable);
-        await ExecuteStoredProcedureAsync();
+        await ExecuteValidationStoredProcedureAsync<TEntity>();
     }
 
-    private void PopulateId(DataTable dataTable)
+    private void PopulateCommonProperties(DataTable dataTable)
     {
+        dataTable.Columns.Add("ExtraProperties", typeof(string));
+        dataTable.Columns.Add("ConcurrencyStamp", typeof(string));
+        dataTable.Columns.Add("CreationTime", typeof(DateTime));
+        dataTable.Columns.Add("CreatorId", typeof(Guid));
+        dataTable.Columns.Add("LastModificationTime", typeof(DateTime));
+        dataTable.Columns.Add("LastModifierId", typeof(Guid));
+        dataTable.Columns.Add("ImportId", typeof(Guid));
         dataTable.Columns.Add("Id", typeof(Guid));
-
+        
+        
+        var importId = _guidGenerator.Create();
         foreach (DataRow row in dataTable.Rows)
         {
+            row["ExtraProperties"] = "{}";
+            row["ConcurrencyStamp"] = _guidGenerator.Create().ToString();
+            row["CreationTime"] = _clock.Now;
+            row["CreatorId"] = _currentUser.Id;
+            row["LastModificationTime"] = _clock.Now;
+            row["LastModifierId"] = _currentUser.Id;
+            row["ImportId"] = importId;
             row["Id"] = _guidGenerator.Create();
         }
     }
@@ -69,7 +92,8 @@ public class ExcelImporterGen2 : IExcelImporter, ITransientDependency
         using var sqlBulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction)
         {
             BatchSize = 2000,
-            DestinationTableName = "AppBooksTemp"
+            DestinationTableName = BookStoreConsts.DbTablePrefix + BookStoreConsts.DbTempTableName,
+            BulkCopyTimeout = 60
         };
 
         // Map columns and insert
@@ -82,12 +106,18 @@ public class ExcelImporterGen2 : IExcelImporter, ITransientDependency
         await transaction.CommitAsync();
     }
 
-    private async Task ExecuteStoredProcedureAsync()
+    private async Task ExecuteValidationStoredProcedureAsync<TEntity>()
+        where TEntity : class, IEntity
     {
         var dbContext = await _dbContextProvider.GetDbContextAsync();
         try
         {
-            var result = await dbContext.Database.ExecuteSqlRawAsync("EXEC ValidateAndTransferBooks");
+            var entityType = dbContext.Model.FindEntityType(typeof(TEntity));
+            var tableName = entityType!.GetTableName();
+
+            dbContext.Database.SetCommandTimeout(1800);
+            await dbContext.Database.ExecuteSqlRawAsync("EXEC ValidateAndTransferEntities {0}", tableName!);
+            dbContext.Database.SetCommandTimeout(30);
         }
         catch (SqlException ex)
         {

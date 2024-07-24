@@ -36,13 +36,23 @@ public class BookStoreDataSeederContributor
             return;
         }
 
+        await SeedBooksAndAuthors();
+        await SeedSystemCategories();
+    }
+
+    private async Task SeedSystemCategories()
+    {
+    }
+
+    private async Task SeedBooksAndAuthors()
+    {
         var orwell = await _authorRepository.InsertAsync(
-            await _authorManager.CreateAsync(
-                "George Orwell",
-                new DateTime(1903, 06, 25, 0, 0, 0, DateTimeKind.Utc),
-                "Orwell produced literary criticism and poetry, fiction and polemical journalism; and is best known for the allegorical novella Animal Farm (1945) and the dystopian novel Nineteen Eighty-Four (1949)."
-            )
-        );
+                    await _authorManager.CreateAsync(
+                        "George Orwell",
+                        new DateTime(1903, 06, 25, 0, 0, 0, DateTimeKind.Utc),
+                        "Orwell produced literary criticism and poetry, fiction and polemical journalism; and is best known for the allegorical novella Animal Farm (1945) and the dystopian novel Nineteen Eighty-Four (1949)."
+                    )
+                );
 
         var douglas = await _authorRepository.InsertAsync(
             await _authorManager.CreateAsync(
@@ -74,5 +84,4 @@ public class BookStoreDataSeederContributor
             autoSave: true
         );
     }
-
 }
