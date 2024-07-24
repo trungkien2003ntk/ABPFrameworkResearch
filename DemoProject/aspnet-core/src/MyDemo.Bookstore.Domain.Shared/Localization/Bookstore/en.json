@@ -6,6 +6,7 @@
     "BookStore.Error:100002": "An author with the name '{name}' does not exist.",
     "BookStore.Error:100101": "An author with the name '{name}' already exists.",
     "BookStore.Error:100102": "A book with the name '{name}' already exists.",
+    "BookStore.Error:100103": "A VAT with the code '{code}' already exists.",
 
     // 20xxx: Database or persistence-related errors
     "BookStore.Error:200001": "An error occurred when executing the stored procedure. (Details: '{detail}')",

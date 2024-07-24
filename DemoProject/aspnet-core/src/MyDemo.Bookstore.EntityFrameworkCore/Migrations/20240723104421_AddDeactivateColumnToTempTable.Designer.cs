@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyDemo.BookStore.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace MyDemo.BookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class BookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240723104421_AddDeactivateColumnToTempTable")]
+    partial class AddDeactivateColumnToTempTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,7 +158,7 @@ namespace MyDemo.BookStore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")
-                        .HasColumnType("nvarchar(40)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -179,7 +182,7 @@ namespace MyDemo.BookStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Discriminator")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("ExchangeRate")
                         .HasPrecision(18)
@@ -194,8 +197,7 @@ namespace MyDemo.BookStore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("KindOfFalName")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Kind_Of_Fal");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("datetime2")
@@ -224,10 +226,6 @@ namespace MyDemo.BookStore.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Discriminator");
-
-                    b.HasIndex("ImportId");
 
                     b.ToTable("AppTemp", (string)null);
                 });

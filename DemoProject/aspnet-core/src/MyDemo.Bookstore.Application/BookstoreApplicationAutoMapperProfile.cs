@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using MyDemo.BookStore.Authors;
 using MyDemo.BookStore.Books;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
+using MyDemo.BookStore.Categories;
+using MyDemo.BookStore.SystemCategories;
+using MyDemo.BookStore.Vats;
 
 namespace MyDemo.BookStore;
 
@@ -14,5 +15,7 @@ public class BookStoreApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateBookDto, Book>();
         CreateMap<Author, AuthorDto>();
         CreateMap<Author, AuthorLookupDto>();
+        CreateMap<Vat, VatDto>();
+        CreateMap<SystemCategory, SystemCategoryDto>();
     }
 }

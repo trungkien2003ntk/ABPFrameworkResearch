@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyDemo.BookStore.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace MyDemo.BookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class BookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240723022754_AddSystemCategory")]
+    partial class AddSystemCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,16 +149,13 @@ namespace MyDemo.BookStore.Migrations
                     b.ToTable("AppBooks", (string)null);
                 });
 
-            modelBuilder.Entity("MyDemo.BookStore.Books.TempEntity", b =>
+            modelBuilder.Entity("MyDemo.BookStore.Books.BookTemp", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AuthorId")
+                    b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(40)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -172,30 +172,10 @@ namespace MyDemo.BookStore.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("CreatorId");
 
-                    b.Property<bool?>("Deactivate")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal?>("ExchangeRate")
-                        .HasPrecision(18)
-                        .HasColumnType("decimal(18,0)");
-
                     b.Property<string>("ExtraProperties")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
-
-                    b.Property<Guid>("ImportId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("KindOfFalName")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Kind_Of_Fal");
 
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("datetime2")
@@ -206,30 +186,22 @@ namespace MyDemo.BookStore.Migrations
                         .HasColumnName("LastModifierId");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float?>("Price")
+                    b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<DateTime?>("PublishDate")
+                    b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Type")
+                    b.Property<int>("Type")
                         .HasColumnType("int");
-
-                    b.Property<double?>("Value")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Discriminator");
-
-                    b.HasIndex("ImportId");
-
-                    b.ToTable("AppTemp", (string)null);
+                    b.ToTable("AppBooksTemp", (string)null);
                 });
 
             modelBuilder.Entity("MyDemo.BookStore.Categories.SystemCategory", b =>

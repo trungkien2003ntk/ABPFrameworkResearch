@@ -1,6 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyDemo.BookStore.Authors;
 using MyDemo.BookStore.Books;
+using MyDemo.BookStore.Categories;
+using MyDemo.BookStore.Currencies;
+using MyDemo.BookStore.Departments;
+using MyDemo.BookStore.ExpenseCodes;
+using MyDemo.BookStore.KindOfFals;
+using MyDemo.BookStore.LegalEntities;
+using MyDemo.BookStore.Vats;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -56,14 +63,19 @@ public class BookStoreDbContext :
     #endregion
 
     public DbSet<Book> Books { get; set; }
-    public DbSet<BookTemp> BooksTemp { get; set; }
+    public DbSet<TempEntity> TempEntity { get; set; }
     public DbSet<Author> Authors { get; set; }
+    public DbSet<SystemCategory> SystemCategories { get; set; }
+    public DbSet<Vat> Vats { get; set; }
+    public DbSet<ExpenseCode> ExpenseCodes { get; set; }
+    public DbSet<KindOfFal> KindOfFals { get; set; }
+    public DbSet<Department> Departments { get; set; }
+    public DbSet<Currency> Currencies { get; set; }
+    public DbSet<LegalEntity> LegalEntities { get; set; }
 
     public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options)
         : base(options)
-    {
-
-    }
+    { }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
